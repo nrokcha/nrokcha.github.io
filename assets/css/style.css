@@ -40,7 +40,7 @@ a{color:inherit;text-decoration:none}
   place-items:center;
 }
 .menu-btn .bars{
-  width:22px; height:14px; position:relative;
+  width:22px; height:12px; position:relative;
 }
 .menu-btn .bars::before,
 .menu-btn .bars::after,
