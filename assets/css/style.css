@@ -57,6 +57,17 @@ a{color:inherit;text-decoration:none}
 .menu-btn .bars span{top:6px}
 .menu-btn .bars::after{bottom:0}
 
+/* hamburger → close animation */
+.overlay.open + .header .bars::before{
+  transform:translateY(6px) rotate(45deg);
+}
+.overlay.open + .header .bars::after{
+  transform:translateY(-6px) rotate(-45deg);
+}
+.overlay.open + .header .bars span{
+  opacity:0;
+}
+
 /* overlay menu */
 .overlay{
   position:fixed; inset:0;
