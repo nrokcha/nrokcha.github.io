@@ -1,97 +1,125 @@
+
+/* =========================================================
+   JIWON Portfolio – clean style.css
+   - 자주 만지는 값은 :root(변수)만 수정하면 됨
+   ========================================================= */
+
+/* =======================
+   0) QUICK CONTROL (여기만 주로 수정)
+   ======================= */
 :root{
-  --bg:#fff;
-  --fg:#2f2f2f;        /* 차콜 기본 */
-  --muted:rgba(0,0,0,.55);
-  --maxw:980px;
-  --pad:22px;
+  /* COLORS */
+  --bg:#ffffff;
+  --text:#2b2b2b;        /* 기본 글자(차콜) */
+  --muted:#5f5f5f;       /* 보조 텍스트 */
+  --hair:rgba(0,0,0,.08);
 
-  /* header/menu positioning */
-  --headerTop:18px;    /* header padding-top과 동일하게 */
-  --menuZ:9999;        /* 메뉴 버튼은 무조건 최상단 */
+  /* LAYOUT */
+  --maxw:980px;          /* 작품 영역 최대 폭 */
+  --pad:22px;            /* 좌우 여백(거터) */
+  --headerTop:18px;      /* 상단 여백(헤더/버튼 위치) */
 
+  /* TYPOGRAPHY (전체 폰트 크기들) */
+  --brandSize:20px;      /* 왼쪽 상단 이름 */
+  --menuSize:22px;       /* 오버레이 메뉴 WORKS/ABOUT/CONTACT */
+  --subMenuSize:18px;    /* 오버레이 연도 */
+  --pageTitle:32px;      /* ABOUT/CONTACT 페이지 제목 */
+  --bodySize:15.5px;     /* ABOUT/CONTACT 본문 */
+  --captionSize:15px;    /* WORKS 캡션(제목/재료/크기 전부 통일) */
+
+  /* SPACING (간격) */
+  --captionTop:18px;     /* 작품 이미지 ↔ 캡션 사이 */
+  --thumbTop:18px;       /* 캡션 ↔ 썸네일 줄 사이 */
+  --thumbPadY:12px;      /* 썸네일 strip 위아래 여백 */
+  --thumbPadX:28px;      /* 썸네일 strip 좌우 여백 */
+  --thumbGap:18px;       /* 썸네일 사이 간격 */
+  --pageTop:110px;       /* ABOUT/CONTACT 페이지 상단 여백 */
+  --pageBottom:60px;
+
+  /* IMAGES */
+  --homeMax:980px;       /* 메인 이미지 최대 폭 */
+  --heroMaxTall:72vh;    /* 세로 작품 최대 높이(필요시) */
+  --thumbSize:92px;      /* 썸네일 크기 */
+  --thumbSizeMobile:76px;
+
+  /* LAYER */
+  --zHeader:20;
+  --zOverlay:40;
+  --zMenuBtn:9999;
+
+  /* FONT STACK */
   --font:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,"Noto Sans KR","Apple SD Gothic Neo",sans-serif;
 }
 
+/* =======================
+   1) BASE
+   ======================= */
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
   margin:0;
   font-family:var(--font);
-  color:var(--fg);
+  color:var(--text);
   background:var(--bg);
 }
 a{color:inherit;text-decoration:none}
 
-/* =========================================================
-   HEADER
-   - 브랜드(이름)는 overlay에 자연스럽게 가려지게: header는 overlay 아래
-   - X는 menu-btn이 fixed로 overlay 위에 남도록
-========================================================= */
+/* =======================
+   2) HEADER (brand only)
+   - name은 overlay에 자연스럽게 가려지게(z 낮게)
+   ======================= */
 .header{
   position:fixed;
   top:0; left:0; right:0;
   display:flex;
   align-items:center;
-  justify-content:space-between;
+  justify-content:flex-start;
   padding:var(--headerTop) var(--pad);
-
-  z-index:20;          /* ✅ overlay(40)보다 아래 → 이름이 자연스럽게 가려짐 */
-  pointer-events:none; /* header 전체 클릭 막고 */
+  z-index:var(--zHeader);
+  pointer-events:none; /* 헤더는 클릭 방지 */
 }
-.brand{ pointer-events:auto; }
-
 .brand{
+  pointer-events:auto;
   letter-spacing:.14em;
   font-weight:400;
-  font-size:20px;
+  font-size:var(--brandSize);
 }
 
-/* =========================================================
-   MENU BUTTON (HAMBURGER / X)
-   - header에서 분리(fixed) → overlay 위에 항상 남는다
-========================================================= */
+/* =======================
+   3) MENU BUTTON (hamburger ↔ X)
+   - HTML에서 header 밖에 있어야 함
+   ======================= */
 .menu-btn{
+  position:fixed;
+  top:var(--headerTop);
+  right:var(--pad);
+  width:36px;
+  height:24px;
   border:0;
   background:transparent;
   padding:0;
-  width:36px;
-  height:24px;
-
   display:grid;
   place-items:center;
-
-  position:fixed;              /* ✅ header 레이어에서 분리 */
-  top:var(--headerTop);         /* header와 동일 좌표 */
-  right:var(--pad);
-
-  z-index:9999;                 /* ✅ overlay(40)보다 무조건 위 */
-  pointer-events:auto;
+  z-index:var(--zMenuBtn);
   cursor:pointer;
   -webkit-tap-highlight-color:transparent;
 }
-
-.menu-btn .bars{
-  width:22px;
-  height:14px;
-  position:relative;
-}
-
+.menu-btn .bars{width:22px;height:14px;position:relative}
 .menu-btn .bars::before,
 .menu-btn .bars::after,
 .menu-btn .bars span{
   content:"";
   position:absolute;
   left:0; right:0;
-  height:2px;
-  background:var(--fg);
+  height:2px;                 /* ✅ 선 두께 */
+  background:var(--text);
   border-radius:2px;
   transform-origin:center;
   transition:transform .22s ease, opacity .18s ease;
 }
-
-.menu-btn .bars::before{ top:0; }
-.menu-btn .bars span{ top:50%; transform:translateY(-50%); }
-.menu-btn .bars::after{ bottom:0; }
+.menu-btn .bars::before{top:0}
+.menu-btn .bars span{top:50%;transform:translateY(-50%)}
+.menu-btn .bars::after{bottom:0}
 
 /* hamburger → X */
 body.menu-open .menu-btn .bars::before{
@@ -100,21 +128,19 @@ body.menu-open .menu-btn .bars::before{
 body.menu-open .menu-btn .bars::after{
   transform:translateY(-6px) rotate(-45deg);
 }
-body.menu-open .menu-btn .bars span{
-  opacity:0;
-}
+body.menu-open .menu-btn .bars span{opacity:0}
 
-/* overlay 열리면 배경 스크롤 잠금 */
-body.menu-open{ overflow:hidden; }
+/* 메뉴 열리면 배경 스크롤 잠금 */
+body.menu-open{overflow:hidden}
 
-/* =========================================================
-   OVERLAY MENU
-========================================================= */
+/* =======================
+   4) OVERLAY MENU
+   ======================= */
 .overlay{
   position:fixed;
   inset:0;
   background:rgba(255,255,255,.92);
-  z-index:40;                 /* header(20) 위, menu-btn(9999) 아래 */
+  z-index:var(--zOverlay);
   display:flex;
   align-items:center;
   justify-content:center;
@@ -124,7 +150,6 @@ body.menu-open{ overflow:hidden; }
   pointer-events:none;
   transition:opacity .18s ease, visibility 0s linear .18s;
 }
-
 .overlay.open{
   opacity:1;
   visibility:visible;
@@ -136,31 +161,21 @@ body.menu-open{ overflow:hidden; }
   text-align:center;
   letter-spacing:.22em;
 }
-
 .overlay nav a{
   display:block;
   padding:10px 0;
-  font-size:22px;
+  font-size:var(--menuSize);
 }
-
 .overlay nav .sub a{
-  font-size:18px;
+  font-size:var(--subMenuSize);
   letter-spacing:.18em;
   color:rgba(0,0,0,.75);
 }
+.overlay .divider{height:22px}
 
-.overlay .divider{ height:22px; }
-
-/* =========================================================
-   PAGES / HOME
-========================================================= */
-.main{ padding-top:92px; }
-.center{
-  width:min(var(--maxw), 100%);
-  margin:0 auto;
-  padding:0 var(--pad);
-}
-
+/* =======================
+   5) HOME
+   ======================= */
 .home-hero{
   min-height:100vh;
   display:flex;
@@ -169,26 +184,24 @@ body.menu-open{ overflow:hidden; }
   padding:0 var(--pad);
 }
 .home-hero img{
-  width:min(980px, 100%);
+  width:min(var(--homeMax), 100%);
   height:auto;
   display:block;
   border-radius:2px;
 }
 
-/* =========================================================
-   WORKS
-========================================================= */
+/* =======================
+   6) WORKS PAGE
+   ======================= */
 .works{
-  padding-top:92px;
+  padding-top:92px; /* 헤더 공간 */
   padding-bottom:36px;
 }
-
 .hero-wrap{
   width:min(var(--maxw), 100%);
   margin:0 auto;
   padding:0 var(--pad);
 }
-
 .hero{
   width:100%;
   height:auto;
@@ -196,49 +209,46 @@ body.menu-open{ overflow:hidden; }
   border-radius:2px;
 }
 
-/* tall work only */
+/* 세로 작품만 높이 제한하고 싶을 때 (JS가 is-tall 붙일 때만 적용) */
 #hero.is-tall{
-  max-height:72vh;
+  max-height:var(--heroMaxTall);
   object-fit:contain;
 }
 
-/* caption */
+/* 캡션 */
 .meta{
   width:min(var(--maxw), 100%);
-  margin:22px auto 0;
+  margin:var(--captionTop) auto 0;
   padding:0 var(--pad);
-  line-height:1.6;
+  font-size:var(--captionSize); /* ✅ 제목/재료/크기 통일 */
+  line-height:1.65;
 }
 .meta .title{
   font-style:italic;
-  font-size:16px;
   color:rgba(0,0,0,.72);
   margin:0 0 8px 0;
 }
 .meta .line{
-  font-size:14px;
-  color:rgba(0,0,0,.58);
+  color:rgba(0,0,0,.62);
   margin:0;
 }
-.meta .muted{ color:var(--muted); }
 
-/* thumbnails strip */
+/* 썸네일 strip */
 .thumb-strip{
   width:min(var(--maxw), 100%);
-  margin:20px auto 0;
-  padding:12px 28px 30px;
+  margin:var(--thumbTop) auto 0;
+  padding:var(--thumbPadY) var(--thumbPadX) 30px;
   display:flex;
-  gap:18px;
+  gap:var(--thumbGap);
   overflow-x:auto;
   -webkit-overflow-scrolling:touch;
   scrollbar-width:thin;
 }
-.thumb-strip::-webkit-scrollbar{ height:8px; }
+.thumb-strip::-webkit-scrollbar{height:8px}
 .thumb-strip::-webkit-scrollbar-thumb{
   background:rgba(0,0,0,.18);
   border-radius:999px;
 }
-
 .thumb{
   border:0;
   background:transparent;
@@ -248,68 +258,56 @@ body.menu-open{ overflow:hidden; }
   flex:0 0 auto;
 }
 .thumb img{
-  width:92px; height:92px;
+  width:var(--thumbSize);
+  height:var(--thumbSize);
   object-fit:cover;
   display:block;
-  border:1px solid rgba(0,0,0,.06);
+  border:1px solid var(--hair);
   background:#fafafa;
 }
-.thumb.active{ opacity:1; }
-.thumb:active{ transform:scale(.98); }
+.thumb.active{opacity:1}
+.thumb:active{transform:scale(.98)}
 
-/* =========================================================
-   ABOUT / CONTACT
-========================================================= */
+/* =======================
+   7) ABOUT / CONTACT
+   ======================= */
 .page{
   width:min(var(--maxw), 100%);
   margin:0 auto;
-  padding:110px var(--pad) 60px;
+  padding:var(--pageTop) var(--pad) var(--pageBottom);
+  font-size:var(--bodySize);
   line-height:1.85;
-  font-size:15.5px;
 }
 .page h1{
   margin:0 0 18px 0;
   font-weight:500;
   letter-spacing:.12em;
-  font-size:32px;
+  font-size:var(--pageTitle);
 }
-.page p{ margin:0 0 18px; }
+.page p{margin:0 0 18px}
 .page .small{
   color:var(--muted);
   font-size:14px;
   margin-top:36px;
 }
-.page .cv ul{ margin:10px 0 0 18px; }
-.page .cv ul + .small{ margin-top:38px; }
-.page .cv li{ margin:10px 0; line-height:1.8; }
 
-/* =========================================================
-   RESPONSIVE
-========================================================= */
+/* CV 리스트(education/exhibitions) */
+.page .cv ul{margin:10px 0 0 18px}
+.page .cv li{margin:10px 0; line-height:1.8}
+
+/* =======================
+   8) RESPONSIVE
+   ======================= */
 @media (max-width:520px){
-  .brand{ font-size:18px; }
-  .meta{
-  width:min(var(--maxw), 100%);
-  margin:22px auto 0;
-  padding:0 var(--pad);
-  line-height:1.6;
-  font-size:12px;    
-}
-  .thumb img{ width:76px; height:76px; }
-  .thumb-strip{
-    padding-left:18px;
-    padding-right:18px;
-    gap:14px;
+  :root{
+    --brandSize:18px;
+    --thumbSize:var(--thumbSizeMobile);
+    --menuSize:22px;     /* 필요하면 20px로 줄여도 됨 */
+    --subMenuSize:18px;
+    --pageTitle:30px;
+    --bodySize:15px;
+    --captionSize:15px;  /* ✅ 모바일도 동일 크기 유지 */
+    --thumbPadX:18px;
+    --thumbGap:14px;
   }
-}
-
-/* FORCE: menu button always above overlay */
-.menu-btn{
-  position: fixed !important;
-  top: 18px !important;
-  right: var(--pad) !important;
-  z-index: 2147483647 !important;
-}
-.menu-btn, .menu-btn *{
-  pointer-events: auto !important;
 }
