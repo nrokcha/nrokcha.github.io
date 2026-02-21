@@ -33,19 +33,21 @@ a{color:inherit;text-decoration:none}
 
 /* menu button (hamburger / X) */
 .menu-btn{
- width:36px; height:24px;
+  width:36px;
+  height:24px;
   border:0;
   background:transparent;
   border-radius:0;
   box-shadow:none;
+
   display:grid;
   place-items:center;
 
-  position:fixed;              /* ⭐️ 핵심: header 레이어에서 분리 */
-  top:18px;                    /* header padding과 맞춤 */
-  right:var(--pad);            /* 오른쪽 여백 동일 */
-  z-index:100;                 /* overlay(40)보다 확실히 위 */
-  
+  position:fixed !important;   /* ⭐️ header에서 완전히 분리 */
+  top:18px;                    /* header padding과 동일 */
+  right:var(--pad);
+  z-index:9999 !important;     /* ⭐️ overlay(40) 무조건 위 */
+
   cursor:pointer;
   -webkit-tap-highlight-color: transparent;
 }
