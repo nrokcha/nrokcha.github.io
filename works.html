@@ -5,7 +5,7 @@
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="assets/css/style.css?v=20260222_2">
+<link rel="stylesheet" href="assets/css/style.css?v=20260222_3">
 
 </head>
 <body>
@@ -21,12 +21,10 @@
 <div class="overlay" id="menuOverlay" aria-hidden="true">
   <nav>
     <a href="works.html">WORKS</a>
-    <div class="sub">
-      <a href="works.html#2026">2026</a>
-      <a href="works.html#2025">2025</a>
-      <a href="works.html#2024">2024</a>
-      <a href="works.html#2023">2023</a>
-    </div>
+
+    <!-- ✅ series menu will be auto-built from works.json -->
+    <div class="sub" id="seriesMenu"></div>
+
     <div class="divider"></div>
     <a href="about.html">ABOUT</a>
     <a href="contact.html">CONTACT</a>
@@ -45,10 +43,13 @@
     <div class="line" id="workSize"></div>
   </div>
 
+  <!-- ✅ series name shown above thumbnails (separate from caption) -->
+  <div class="series-title" id="seriesTitle"></div>
+
   <div class="thumb-strip" id="thumbStrip" aria-label="Thumbnails"></div>
 </main>
 
-<script src="assets/js/main.js?v=20260222_2"></script>
-<script src="assets/js/works.js"></script>
+<script src="assets/js/main.js?v=20260222_3"></script>
+<script src="assets/js/works.js?v=20260222_3"></script>
 </body>
 </html>
