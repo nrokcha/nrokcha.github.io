@@ -1,0 +1,21 @@
+<!-- ===== shared header + menu (include everywhere) ===== -->
+<header class="header">
+  <a class="brand" href="index.html">JIWON JEONG</a>
+</header>
+
+<button class="menu-btn" type="button" aria-label="Menu" data-menu-open>
+  <div class="bars"><span></span></div>
+</button>
+
+<div class="overlay" id="menuOverlay" aria-hidden="true">
+  <nav>
+    <a href="works.html">WORKS</a>
+
+    <!-- works.js가 있으면 자동으로 시리즈 목록이 채워짐 -->
+    <div class="sub" id="seriesMenu"></div>
+
+    <div class="divider"></div>
+    <a href="about.html">ABOUT</a>
+    <a href="contact.html">CONTACT</a>
+  </nav>
+</div>
