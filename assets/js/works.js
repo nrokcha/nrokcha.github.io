@@ -182,26 +182,7 @@ function uniqSeriesBySlug(works){
     });
   }
 
-  function buildSeriesMenu(){
-    if(!seriesMenu) return;
-
-    const seriesList = uniqSeriesBySlug(works);
-    seriesMenu.innerHTML = '';
-
-    const all = document.createElement('a');
-    all.href = 'works.html';
-    all.textContent = 'ALL';
-    seriesMenu.appendChild(all);
-
-    seriesList.forEach(({slug, name})=>{
-      const a = document.createElement('a');
-      a.href = `works.html#s=${encodeURIComponent(slug)}`;
-      // 메뉴 표기는 seriesName 그대로 (한글/특수문자 OK)
-      a.textContent = name || slug;
-      seriesMenu.appendChild(a);
-    });
-  }
-
+  
   function pickStateFromHash(){
     const { seriesSlug, workId } = parseHash();
 
@@ -248,7 +229,6 @@ function uniqSeriesBySlug(works){
     }
   }
 
-  buildSeriesMenu();
   applyFromHash();
   window.addEventListener('hashchange', applyFromHash);
 
