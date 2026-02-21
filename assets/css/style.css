@@ -111,7 +111,7 @@ a{color:inherit;text-decoration:none}
 /* works */
 .works{
   padding-top:92px;
-  padding-bottom:36px; /* ↓ 아래쪽 숨쉴공간(오른쪽 느낌) */
+  padding-bottom:36px; /* ↓ 아래쪽 숨쉴공간 */
 }
 .hero-wrap{
   width:min(var(--maxw), 100%);
@@ -125,7 +125,7 @@ a{color:inherit;text-decoration:none}
   border-radius:2px;
 }
 
-/* ✅ caption: smaller + lighter like reference */
+/* ✅ caption*/
 .meta{
   width:min(var(--maxw), 100%);
   margin:28px auto 0;           /* 이미지-캡션 여백 ↑ */
@@ -134,8 +134,8 @@ a{color:inherit;text-decoration:none}
 }
 .meta .title{
   font-style:italic;
-  font-size:16px;               /* ↓ 작게 */
-  color:rgba(0,0,0,.62);        /* ↓ 연하게 */
+  font-size:14px;               /* ↓ 작게 */
+  color:rgba(0,0,0,.50);        /* ↓ 연하게 */
   margin:0 0 8px 0;
 }
 .meta .line{
@@ -145,7 +145,7 @@ a{color:inherit;text-decoration:none}
 }
 .meta .muted{color:var(--muted)}
 
-/* ✅ thumbnails: more gutter + more breathing room */
+/* ✅ thumbnails*/
 .thumb-strip{
   width:min(var(--maxw), 100%);
   margin:50px auto 0;           /* 캡션-썸네일 여백 */
@@ -192,7 +192,7 @@ a{color:inherit;text-decoration:none}
 .page .cv ul{margin:10px 0 0 18px}
 .page .cv li{margin:6px 0}
 
-/* ✅ tall work: keep as-is (only tall works) */
+/* ✅ tall work*/
 #hero.is-tall{
   max-height:72vh;
   object-fit:contain;
