@@ -1,62 +1,73 @@
 :root{
   --bg:#fff;
-  --fg:#111;
-  --muted:#666;
-  --hair:#e9e9e9;
-  --charcoal:#2a2a2a;
-  --maxw: 980px;
-  --pad: 22px;
-  --font: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,"Noto Sans KR","Apple SD Gothic Neo",sans-serif;
+  --fg:#2f2f2f;        /* 차콜 기본 */
+  --muted:rgba(0,0,0,.55);
+  --maxw:980px;
+  --pad:22px;
+
+  /* header/menu positioning */
+  --headerTop:18px;    /* header padding-top과 동일하게 */
+  --menuZ:9999;        /* 메뉴 버튼은 무조건 최상단 */
+
+  --font:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,"Noto Sans KR","Apple SD Gothic Neo",sans-serif;
 }
+
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
   margin:0;
   font-family:var(--font);
-  color:var(--charcoal);
+  color:var(--fg);
   background:var(--bg);
 }
 a{color:inherit;text-decoration:none}
+
+/* =========================================================
+   HEADER
+   - brand는 overlay에 자연스럽게 가려지게(overlay가 더 위)
+   - menu-btn은 fixed로 분리(항상 overlay 위)
+========================================================= */
 .header{
-  position:fixed; top:0; left:0; right:0;
-  display:flex; align-items:center; justify-content:space-between;
-  padding:18px var(--pad);
-  z-index:20;                 /* overlay(40) 아래: 로고는 자연스럽게 가려짐 */
-  pointer-events:none;
+  position:fixed;
+  top:0; left:0; right:0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:var(--headerTop) var(--pad);
+  z-index:20;
+  pointer-events:none;  /* header 전체 클릭 막고 */
 }
-.brand, .menu-btn{pointer-events:auto}
+.brand{ pointer-events:auto; }
+
 .brand{
   letter-spacing:.14em;
   font-weight:400;
   font-size:20px;
 }
 
-/* menu button (hamburger / X) */
+/* =========================================================
+   MENU BUTTON (HAMBURGER / X)
+   - header에서 분리: overlay 위에 항상 남는다
+========================================================= */
 .menu-btn{
-  width:36px;
-  height:24px;
   border:0;
   background:transparent;
-  border-radius:0;
-  box-shadow:none;
+  padding:0;
+  width:36px;
+  height:24px;
 
   display:grid;
   place-items:center;
 
-  position:fixed !important;   /* ⭐️ header에서 완전히 분리 */
-  top:18px;                    /* header padding과 동일 */
+  position:fixed;            /* ⭐️ 무조건 overlay보다 위 */
+  top:var(--headerTop);       /* header와 동일 좌표 */
   right:var(--pad);
-  z-index:9999 !important;     /* ⭐️ overlay(40) 무조건 위 */
+  z-index:var(--menuZ);
 
+  pointer-events:auto;
   cursor:pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color:transparent;
 }
-
-/* ✅ 모바일에서 누르기 쉽게 '실제 클릭 영역'을 키우고 싶으면 (선택)
-   시각적 크기는 유지하고, 터치 영역만 44px로:
-   .menu-btn{ width:44px; height:44px; }
-   .menu-btn .bars{ transform:scale(.82); }
-*/
 
 .menu-btn .bars{
   width:22px;
@@ -69,37 +80,40 @@ a{color:inherit;text-decoration:none}
 .menu-btn .bars span{
   content:"";
   position:absolute;
-  left:0;
-  right:0;
+  left:0; right:0;
   height:2px;                 /* ✅ 두께 */
-  background:#2f2f2f;
+  background:var(--fg);
   border-radius:2px;
-
-  transform-origin:center;     /* ✅ 회전 중심 고정 */
-  transition:transform .25s ease, opacity .25s ease;
+  transform-origin:center;
+  transition:transform .22s ease, opacity .18s ease;
 }
 
 .menu-btn .bars::before{ top:0; }
 .menu-btn .bars span{ top:50%; transform:translateY(-50%); }
 .menu-btn .bars::after{ bottom:0; }
 
-/* hamburger → X (same button, same position) */
+/* hamburger → X */
 body.menu-open .menu-btn .bars::before{
-  transform: translateY(6px) rotate(45deg);
+  transform:translateY(6px) rotate(45deg);
 }
 body.menu-open .menu-btn .bars::after{
-  transform: translateY(-6px) rotate(-45deg);
+  transform:translateY(-6px) rotate(-45deg);
 }
 body.menu-open .menu-btn .bars span{
   opacity:0;
 }
 
-/* overlay menu */
-.overlay{
-  position:fixed; inset:0;
-  background:rgba(255,255,255,.92);
-  z-index:40;
+/* overlay 열리면 배경 스크롤 잠금 */
+body.menu-open{ overflow:hidden; }
 
+/* =========================================================
+   OVERLAY MENU
+========================================================= */
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(255,255,255,.92);
+  z-index:40;                 /* header(20) 위, menu-btn(9999) 아래 */
   display:flex;
   align-items:center;
   justify-content:center;
@@ -107,9 +121,9 @@ body.menu-open .menu-btn .bars span{
   opacity:0;
   visibility:hidden;
   pointer-events:none;
-
   transition:opacity .18s ease, visibility 0s linear .18s;
 }
+
 .overlay.open{
   opacity:1;
   visibility:visible;
@@ -117,32 +131,29 @@ body.menu-open .menu-btn .bars span{
   transition:opacity .18s ease, visibility 0s;
 }
 
-/* ✅ overlay 열릴 때 배경 스크롤 방지 (강추)
-   main.js에서 body.menu-open이 붙으니 이 CSS만 추가하면 됨 */
-body.menu-open{
-  overflow:hidden;
-}
-
-
 .overlay nav{
   text-align:center;
   letter-spacing:.22em;
 }
+
 .overlay nav a{
   display:block;
   padding:10px 0;
   font-size:22px;
 }
+
 .overlay nav .sub a{
   font-size:18px;
   letter-spacing:.18em;
-  color:#222;
+  color:rgba(0,0,0,.75);
 }
-.overlay .divider{height:22px}
-/* pages */
-.main{
-  padding-top:92px;
-}
+
+.overlay .divider{ height:22px; }
+
+/* =========================================================
+   PAGES / HOME
+========================================================= */
+.main{ padding-top:92px; }
 .center{
   width:min(var(--maxw), 100%);
   margin:0 auto;
@@ -163,16 +174,20 @@ body.menu-open{
   border-radius:2px;
 }
 
-/* works */
+/* =========================================================
+   WORKS
+========================================================= */
 .works{
   padding-top:92px;
-  padding-bottom:36px; /* ↓ 아래쪽 숨쉴공간 */
+  padding-bottom:36px;
 }
+
 .hero-wrap{
   width:min(var(--maxw), 100%);
   margin:0 auto;
   padding:0 var(--pad);
 }
+
 .hero{
   width:100%;
   height:auto;
@@ -180,39 +195,49 @@ body.menu-open{
   border-radius:2px;
 }
 
-/* ✅ caption*/
+/* tall work only */
+#hero.is-tall{
+  max-height:72vh;
+  object-fit:contain;
+}
+
+/* caption */
 .meta{
   width:min(var(--maxw), 100%);
-  margin:28px auto 0;           /* 이미지-캡션 여백 ↑ */
+  margin:22px auto 0;
   padding:0 var(--pad);
   line-height:1.6;
 }
 .meta .title{
   font-style:italic;
-  font-size:12px;               /* ↓ 작게 */
-  color:rgba(0,0,0,.50);        /* ↓ 연하게 */
+  font-size:16px;
+  color:rgba(0,0,0,.72);
   margin:0 0 8px 0;
 }
 .meta .line{
-  font-size:12px;               /* ↓ 작게 */
-  color:rgba(0,0,0,.50);        /* ↓ 더 연하게 */
+  font-size:14px;
+  color:rgba(0,0,0,.58);
   margin:0;
 }
-.meta .muted{color:var(--muted)}
+.meta .muted{ color:var(--muted); }
 
-/* ✅ thumbnails*/
+/* thumbnails strip */
 .thumb-strip{
   width:min(var(--maxw), 100%);
-  margin:50px auto 0;           /* 캡션-썸네일 여백 */
-  padding:12px 28px 30px;       /* 좌우 거터 + 아래 스크롤 여백 */
+  margin:20px auto 0;
+  padding:12px 28px 30px;
   display:flex;
-  gap:18px;                     /* 썸네일 사이 여백 ↑ */
+  gap:18px;
   overflow-x:auto;
   -webkit-overflow-scrolling:touch;
   scrollbar-width:thin;
 }
-.thumb-strip::-webkit-scrollbar{height:8px}
-.thumb-strip::-webkit-scrollbar-thumb{background:rgba(0,0,0,.18); border-radius:999px}
+.thumb-strip::-webkit-scrollbar{ height:8px; }
+.thumb-strip::-webkit-scrollbar-thumb{
+  background:rgba(0,0,0,.18);
+  border-radius:999px;
+}
+
 .thumb{
   border:0;
   background:transparent;
@@ -222,63 +247,49 @@ body.menu-open{
   flex:0 0 auto;
 }
 .thumb img{
-  width:92px; height:92px; object-fit:cover;
+  width:92px; height:92px;
+  object-fit:cover;
   display:block;
   border:1px solid rgba(0,0,0,.06);
   background:#fafafa;
 }
-.thumb.active{opacity:1}
-.thumb:active{transform:scale(.98)}
+.thumb.active{ opacity:1; }
+.thumb:active{ transform:scale(.98); }
 
-/* about/contact */
+/* =========================================================
+   ABOUT / CONTACT
+========================================================= */
 .page{
   width:min(var(--maxw), 100%);
   margin:0 auto;
   padding:110px var(--pad) 60px;
-  font-size:15px;     /* ⭐️ 전체 글씨 크기 */
-  line-height:1.85;   /* ⭐️ 줄간격 */
+  line-height:1.85;
+  font-size:15.5px;
 }
 .page h1{
   margin:0 0 18px 0;
   font-weight:500;
   letter-spacing:.12em;
-  font-size:32px;   /* ⭐️ 제목 크기 */
+  font-size:32px;
 }
-.page p{
-  margin:0 0 18px;   /* 문단 간격 ↑ */
-}
+.page p{ margin:0 0 18px; }
 .page .small{
-  margin-top:40px;
-  font-size:14px;
   color:var(--muted);
+  font-size:14px;
+  margin-top:36px;
 }
-.page .cv ul{
-  margin:10px 0 0 18px;
-}
-.page .cv ul + .small{
-  margin-top:38px;
-}
-.page .cv li{
-  margin:10px 0;     /* ⭐️ 줄 사이 간격 */
-  line-height:1.8;   /* ⭐️ 줄간격 */
-}
+.page .cv ul{ margin:10px 0 0 18px; }
+.page .cv ul + .small{ margin-top:38px; }
+.page .cv li{ margin:10px 0; line-height:1.8; }
 
-/* ✅ tall work*/
-#hero.is-tall{
-  max-height:72vh;
-  object-fit:contain;
-}
-
-/* responsive */
+/* =========================================================
+   RESPONSIVE
+========================================================= */
 @media (max-width:520px){
-  .brand{font-size:18px}
-
-  /* caption on mobile a bit smaller & lighter */
-  .meta .title{font-size:15px}
-  .meta .line{font-size:13px}
-
-  /* thumbnails */
-  .thumb img{width:76px;height:76px}
+  .brand{ font-size:18px; }
+  .meta .title{ font-size:15px; }
+  .meta .line{ font-size:13px; }
+  .thumb img{ width:76px; height:76px; }
   .thumb-strip{
     padding-left:18px;
     padding-right:18px;
