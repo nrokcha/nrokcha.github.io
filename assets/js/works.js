@@ -102,29 +102,26 @@ function buildHash({ series, workId }){
 }
 
 
-/* =========================================================
-   UTIL — 시리즈 목록 만들기(works.json에서 자동 추출)
-   + 안정성: trim + 빈값 제외
-========================================================= */
-function uniqSeries(works){
+/* ===================== UTIL: series 목록 ===================== */
+function uniqSeriesBySlug(works){
+  // slug 기준으로 unique, 표시명(seriesName)은 첫 등장값 사용
   const seen = new Set();
   const list = [];
   works.forEach(w=>{
-    const s = (w.series || '').trim();
-    if(!s || seen.has(s)) return;
-    seen.add(s);
-    list.push(s);
+    const slug = String(w.seriesSlug || '').trim();
+    const name = String(w.seriesName || '').trim();
+    if(!slug) return;            // slug 없으면 메뉴에 못 넣음(규칙상 필수)
+    if(seen.has(slug)) return;
+    seen.add(slug);
+    list.push({ slug, name: name || slug });
   });
   return list;
 }
 
 
-/* =========================================================
-   MAIN
-========================================================= */
+/* ===================== MAIN ===================== */
 (async function(){
 
-  /* ---------- ELEMENTS ---------- */
   const hero        = document.getElementById('hero');
   const titleEl     = document.getElementById('workTitle');
   const mediumEl    = document.getElementById('workMedium');
@@ -137,56 +134,42 @@ function uniqSeries(works){
 
   if(!hero || !titleEl || !mediumEl || !sizeEl || !strip || !heroWrap) return;
 
-
-  /* ---------- LOAD DATA ---------- */
   const res = await fetch('data/works.json', { cache:'no-store' });
   const works = await res.json();
-
-  // 혹시 works.json이 비어 있으면 안전 종료
   if(!Array.isArray(works) || works.length === 0) return;
 
+  // 안전장치: slug 없는 작품이 있으면 필터/메뉴가 꼬일 수 있음
+  // (그래도 작품 id 직접 링크는 되게끔 동작 유지)
 
-  /* ======================================================
-     RENDER — 작품 교체(핵심)
-     ====================================================== */
-  function setWork(w, { series=null } = {}){
+  function setWork(w, { seriesSlug=null } = {}){
     if(!w) return;
 
-    // 1) IMAGE
     hero.src = w.image;
     hero.alt = w.title || '';
 
-    // 2) CAPTION (연도는 유지)
     const yy = (w.year != null) ? String(w.year) : '';
     titleEl.textContent  = yy ? `${w.title}, ${yy}` : `${w.title}`;
     mediumEl.textContent = w.medium || '';
     sizeEl.textContent   = w.size || '';
 
-    // 3) SCALE (cm 기반 존재감)
     heroWrap.classList.remove('s-xl','s-l','s-m','s-s','s-xs');
     heroWrap.classList.add(getScaleClassFromCm(w.size));
 
-    // 4) SERIES LABEL (썸네일 위)
+    // 썸네일 위 시리즈명 표기: seriesName 사용(한글/특수문자 OK)
     if(seriesTitle){
-      const shownSeries = (series || w.series || '').trim();
-      seriesTitle.textContent = shownSeries ? shownSeries.toUpperCase() : '';
+      const shownName = (w.seriesName || '').trim();
+      seriesTitle.textContent = shownName || '';
     }
 
-    // 5) ACTIVE THUMB
     [...strip.children].forEach(el=>{
       el.classList.toggle('active', el.dataset.id === w.id);
     });
 
-    // 6) HASH 저장(공유/새로고침/뒤로가기 안정)
-    const keepSeries = (series || w.series || '').trim() || null;
-    history.replaceState(null,'', buildHash({ series: keepSeries, workId: w.id }));
+    const keepSlug = (seriesSlug || w.seriesSlug || '').trim() || null;
+    history.replaceState(null,'', buildHash({ seriesSlug: keepSlug, workId: w.id }));
   }
 
-
-  /* ======================================================
-     THUMBS — (필터된) 썸네일 렌더
-     ====================================================== */
-  function renderThumbs(list, { series=null } = {}){
+  function renderThumbs(list, { seriesSlug=null } = {}){
     strip.innerHTML = '';
     list.forEach(w=>{
       const b = document.createElement('button');
@@ -194,108 +177,79 @@ function uniqSeries(works){
       b.type = 'button';
       b.dataset.id = w.id;
       b.innerHTML = `<img loading="lazy" src="${w.thumb}" alt="${w.title} thumbnail">`;
-      b.addEventListener('click', ()=> setWork(w, { series }));
+      b.addEventListener('click', ()=> setWork(w, { seriesSlug }));
       strip.appendChild(b);
     });
   }
 
-
-  /* ======================================================
-     MENU — 오버레이 시리즈 메뉴 자동 생성
-     - ⚠️ 메뉴 링크는 항상 #s=Series 로 통일 (연도 해시 완전 제거)
-     ====================================================== */
   function buildSeriesMenu(){
     if(!seriesMenu) return;
 
-    const seriesList = uniqSeries(works);
+    const seriesList = uniqSeriesBySlug(works);
     seriesMenu.innerHTML = '';
 
-    // ALL (전체)
     const all = document.createElement('a');
     all.href = 'works.html';
     all.textContent = 'ALL';
     seriesMenu.appendChild(all);
 
-    // series links
-    seriesList.forEach(s=>{
+    seriesList.forEach(({slug, name})=>{
       const a = document.createElement('a');
-      a.href = `works.html#s=${encodeURIComponent(s)}`;
-      a.textContent = s.toUpperCase();
+      a.href = `works.html#s=${encodeURIComponent(slug)}`;
+      // 메뉴 표기는 seriesName 그대로 (한글/특수문자 OK)
+      a.textContent = name || slug;
       seriesMenu.appendChild(a);
     });
   }
 
-
-  /* ======================================================
-     (4) 시리즈 해시 기준으로 "초기 작품" 고르기
-     - #s=Series     → 해당 시리즈의 첫 작품
-     - #s=Series&w=  → 해당 시리즈 안에서 그 작품 (없으면 첫 작품)
-     - #WorkId       → 그 작품 (없으면 첫 작품)
-     ====================================================== */
   function pickStateFromHash(){
-    const { series, workId } = parseHash();
+    const { seriesSlug, workId } = parseHash();
 
-    // A) 기본값
+    // 1) 기본 list
     let list = works;
 
-    // B) 시리즈가 있으면 필터 리스트 생성(시리즈가 존재할 때만 적용)
-    if(series){
-      const filtered = works.filter(w => (w.series || '').trim() === series);
+    // 2) seriesSlug가 있으면 slug 기준 필터
+    if(seriesSlug){
+      const filtered = works.filter(w => String(w.seriesSlug || '').trim() === seriesSlug);
       if(filtered.length) list = filtered;
     }
 
-    // C) 작품 선택: workId가 있으면 우선
+    // 3) 작품 선택: workId가 있으면 우선
     let selected = null;
     if(workId){
-      // 1) 필터된 list 안에서 먼저 찾고
       selected = list.find(w => w.id === workId) || null;
-
-      // 2) 거기 없으면 전체 works에서라도 찾기(예전 링크 호환)
       if(!selected) selected = works.find(w => w.id === workId) || null;
     }
-
-    // D) 못 찾으면 list의 첫 작품
     if(!selected) selected = list[0] || works[0];
 
-    // E) 표시할 시리즈명: 해시 series가 있으면 그걸 우선
-    const shownSeries = (series || selected?.series || '').trim() || null;
+    // 4) 표시용 slug는 해시 우선, 없으면 선택 작품의 slug
+    const shownSlug = (seriesSlug || selected?.seriesSlug || '').trim() || null;
 
-    return { list, selected, shownSeries, seriesFromHash: series || null };
+    return { list, selected, shownSlug, seriesSlugFromHash: seriesSlug || null };
   }
 
-
-  /* ======================================================
-     APPLY — 해시 상태를 화면에 적용 (초기/해시변경 공용)
-     ====================================================== */
   function applyFromHash(){
     const state = pickStateFromHash();
 
-    renderThumbs(state.list, { series: state.shownSeries });
-    setWork(state.selected, { series: state.shownSeries });
+    renderThumbs(state.list, { seriesSlug: state.shownSlug });
+    setWork(state.selected, { seriesSlug: state.shownSlug });
 
     // 메뉴 active 표시(선택)
     if(seriesMenu){
-      const activeSeries = state.seriesFromHash; // 해시로 들어온 시리즈만 '활성' 취급
+      const activeSlug = state.seriesSlugFromHash;
       [...seriesMenu.querySelectorAll('a')].forEach(a=>{
         const href = a.getAttribute('href') || '';
         const isAll = a.textContent === 'ALL';
-        const isActive = activeSeries
-          ? href === `works.html#s=${encodeURIComponent(activeSeries)}`
+        const isActive = activeSlug
+          ? href === `works.html#s=${encodeURIComponent(activeSlug)}`
           : isAll;
         a.classList.toggle('active', isActive);
       });
     }
   }
 
-
-  /* ---------- RUN ---------- */
   buildSeriesMenu();
   applyFromHash();
-
-  /* ======================================================
-     (5) 해시 변경 시에도 시리즈 해시를 완전 지원
-     - 메뉴 클릭 / 뒤로가기 / 주소 직접 수정 모두 OK
-     ====================================================== */
   window.addEventListener('hashchange', applyFromHash);
 
 })();
