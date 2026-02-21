@@ -1,7 +1,8 @@
 [
   {
     "id": "Diving_01",
-    "series": "Diving",
+    "seriesName": "Diving",
+    "seriesSlug": "diving",
     "title": "아크로폴리스의 암벽 The Acropolis Cliff",
     "year": "2025",
     "medium": "acrylic, ink and oil on poly-cotton",
@@ -11,7 +12,8 @@
   },
   {
     "id": "Diving_02",
-    "series": "Diving",
+    "seriesName": "Diving",
+    "seriesSlug": "diving",
     "title": "종합장Ⅰ JonghapjangⅠ",
     "year": "2025",
     "medium": "acrylic, ink, gesso and oil on linen",
@@ -21,7 +23,8 @@
   },
   {
     "id": "Diving_03",
-    "series": "Diving",
+    "seriesName": "Diving",
+    "seriesSlug": "diving",
     "title": "퍼레이드 Parade",
     "year": "2025",
     "medium": "acrylic, ink and oil on linen",
