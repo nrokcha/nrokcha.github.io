@@ -40,22 +40,27 @@ a{color:inherit;text-decoration:none}
   place-items:center;
 }
 .menu-btn .bars{
-  width:22px; height:12px; position:relative;
+  width:22px;
+  height:14px;           /* ⭐️ 높이 기준 먼저 잡기 */
+  position:relative;
 }
+
 .menu-btn .bars::before,
 .menu-btn .bars::after,
 .menu-btn .bars span{
   content:"";
   position:absolute;
-  left:0; right:0;
-  height:1.5px;
-  background:#2a2a2a;
+  left:0;
+  right:0;
+  height:2px;            
+  background:#2f2f2f;
   border-radius:2px;
   transition:transform .25s ease, opacity .25s ease;
 }
-.menu-btn .bars::before{top:0}
-.menu-btn .bars span{top:6px}
-.menu-btn .bars::after{bottom:0}
+
+.menu-btn .bars::before{ top:0; }
+.menu-btn .bars span{ top:50%; transform:translateY(-50%); } /* ⭐️ 중앙 정렬 방식 변경 */
+.menu-btn .bars::after{ bottom:0; }
 
 /* hamburger → close animation */
 .overlay.open + .header .bars::before{
