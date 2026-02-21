@@ -14,6 +14,7 @@
   function setWork(w){
     hero.src = w.image;
     hero.alt = w.title;
+    hero.classList.toggle("is-tall", !!w.tall);
     title.textContent = `${w.title}, ${w.year}`;
     medium.textContent = w.medium;
     size.textContent = w.size;
