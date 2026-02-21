@@ -53,9 +53,9 @@
 
   /* ---------- IMAGES ---------- */
   --homeMax:980px;             /* 홈 메인 이미지 최대 폭 */
-  --heroMaxTall:84vh;          /* 세로 작품 최대 높이 (is-tall일 때) */
+  --heroMaxH:85vh;            /* ⭐️ 전체 작품 최대 높이 (가로/세로 공통) */
   --thumbSize:92px;            /* 썸네일 크기(데스크탑) */
-  --thumbSizeMobile:76px;      /* 썸네일 크기(모바일) */
+  --thumbSizeMobile:66px;      /* 썸네일 크기(모바일) */
 }
 
 /* =========================================================
@@ -210,6 +210,10 @@ body.menu-open{overflow:hidden}
   height:auto;
   display:block;
   border-radius:2px;
+
+  /* ✅ 모든 작품 공통: 한 화면에 들어오게 */
+  max-height:var(--heroMaxH);
+  object-fit:contain;
 }
 
 /* === WORK SCALE (based on real cm size) ==================
@@ -228,11 +232,7 @@ body.menu-open{overflow:hidden}
 .hero-wrap.s-s { max-width: 820px;  }
 .hero-wrap.s-xs{ max-width: 740px;  }
 
-/* 세로 작품만 제한하고 싶을 때 (JS가 #hero에 is-tall 붙일 때만 적용) */
-#hero.is-tall{
-  max-height:var(--heroMaxTall);
-  object-fit:contain;
-}
+
 
 /* 캡션: 제목/재료/크기 전부 같은 크기로 */
 .meta{
