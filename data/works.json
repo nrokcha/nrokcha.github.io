@@ -1,6 +1,7 @@
 [
   {
-    "id": "2025_01",
+    "id": "Diving_01",
+    "series": "Diving",
     "title": "아크로폴리스의 암벽 The Acropolis Cliff",
     "year": "2025",
     "medium": "acrylic, ink and oil on poly-cotton",
@@ -9,7 +10,8 @@
     "thumb": "assets/img/works/1_아크로폴리스의암벽.jpg"
   },
   {
-    "id": "2025_02",
+    "id": "Diving_02",
+    "series": "Diving",
     "title": "종합장Ⅰ JonghapjangⅠ",
     "year": "2025",
     "medium": "acrylic, ink, gesso and oil on linen",
@@ -17,8 +19,9 @@
     "image": "assets/img/works/2_종합장Ⅰ.jpg",
     "thumb": "assets/img/works/2_종합장Ⅰ.jpg"
   },
-   {
-    "id": "2025_03",
+  {
+    "id": "Parade_01",
+    "series": "Parade",
     "title": "퍼레이드 Parade",
     "year": "2025",
     "medium": "acrylic, ink and oil on linen",
