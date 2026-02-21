@@ -1,59 +1,66 @@
-
 /* =========================================================
-   JIWON Portfolio – clean style.css
-   - 자주 만지는 값은 :root(변수)만 수정하면 됨
+   JIWON Portfolio – clean, controllable style.css
+   - 자주 바꾸는 값은 :root(컨트롤 패널)만 수정
    ========================================================= */
 
-/* =======================
-   0) QUICK CONTROL (여기만 주로 수정)
-   ======================= */
+/* =========================================================
+   0) CONTROL PANEL (여기만 주로 수정)
+   ========================================================= */
 :root{
-  /* COLORS */
+  /* ---------- COLORS ---------- */
   --bg:#ffffff;
-  --text:#3d3d3d;        /* 기본 글자(차콜) */
-  --muted:#707070;       /* 보조 텍스트 */
+  --text:#2b2b2b;              /* 기본 글자(차콜) */
+  --muted:#5f5f5f;             /* 보조 글자 */
   --hair:rgba(0,0,0,.08);
 
-  /* LAYOUT */
-  --maxw:980px;          /* 작품 영역 최대 폭 */
-  --pad:22px;            /* 좌우 여백(거터) */
-  --headerTop:18px;      /* 상단 여백(헤더/버튼 위치) */
+  /* ---------- FONT ---------- */
+  --font:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,"Noto Sans KR","Apple SD Gothic Neo",sans-serif;
 
-  /* TYPOGRAPHY (전체 폰트 크기들) */
-  --brandSize:20px;      /* 왼쪽 상단 이름 */
-  --menuSize:21px;       /* 오버레이 메뉴 WORKS/ABOUT/CONTACT */
-  --subMenuSize:17px;    /* 오버레이 연도 */
-  --pageTitle:20px;      /* ABOUT/CONTACT 페이지 제목 */
-  --bodySize:12px;     /* ABOUT/CONTACT 본문 */
-  --captionSize:11px;    /* WORKS 캡션(제목/재료/크기 전부 통일) */
+  /* ---------- LAYOUT ---------- */
+  --maxw:980px;                /* 콘텐츠 최대 폭(works/page 공통) */
+  --pad:22px;                  /* 좌우 거터 */
+  --headerTop:18px;            /* 상단 여백(brand/menu 버튼 y 위치) */
 
-  /* SPACING (간격) */
-  --captionTop:30px;     /* 작품 이미지 ↔ 캡션 사이 */
-  --thumbTop:60px;       /* 캡션 ↔ 썸네일 줄 사이 */
-  --thumbPadY:12px;      /* 썸네일 strip 위아래 여백 */
-  --thumbPadX:28px;      /* 썸네일 strip 좌우 여백 */
-  --thumbGap:10px;       /* 썸네일 사이 간격 */
-  --pageTop:110px;       /* ABOUT/CONTACT 페이지 상단 여백 */
-  --pageBottom:60px;
-
-  /* IMAGES */
-  --homeMax:980px;       /* 메인 이미지 최대 폭 */
-  --heroMaxTall:80vh;    /* 세로 작품 최대 높이(필요시) */
-  --thumbSize:92px;      /* 썸네일 크기 */
-  --thumbSizeMobile:76px;
-
-  /* LAYER */
+  /* ---------- LAYER (z-index) ---------- */
   --zHeader:20;
   --zOverlay:40;
   --zMenuBtn:60;
 
-  /* FONT STACK */
-  --font:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,"Noto Sans KR","Apple SD Gothic Neo",sans-serif;
+  /* ---------- TYPOGRAPHY (크기) ---------- */
+  --brandSize:20px;            /* 왼쪽 상단 이름 */
+  --menuSize:22px;             /* 오버레이 메뉴 WORKS/ABOUT/CONTACT */
+  --subMenuSize:18px;          /* 오버레이 연도 */
+  --pageTitle:28px;            /* ABOUT/CONTACT 제목 */
+  --bodySize:12.5px;           /* ABOUT/CONTACT 본문 */
+  --captionSize:11.5px;          /* WORKS 캡션(제목/재료/크기 통일) */
+
+  /* ---------- SPACING (간격) ---------- */
+  --worksTop:92px;             /* works 페이지 상단(헤더 공간) */
+  --captionTop:30px;           /* 작품 이미지 ↔ 캡션 */
+  --thumbTop:60px;             /* 캡션 ↔ 썸네일 strip */
+  --thumbPadY:12px;            /* 썸네일 strip 위아래 여백 */
+  --thumbPadX:28px;            /* 썸네일 strip 좌우 여백 */
+  --thumbGap:10px;             /* 썸네일 사이 간격 */
+
+  --pageTop:110px;             /* ABOUT/CONTACT 페이지 상단 여백 */
+  --pageBottom:60px;           /* ABOUT/CONTACT 페이지 하단 여백 */
+  --h1ToBodyGap:60px;          /* ABOUT/CONTACT 제목(h1) ↔ 첫 문단 간격 */
+
+  /* ---------- ABOUT (줄/섹션 간격) ---------- */
+  --aboutNameGap:10px;          /* "이름" ↔ b.2001 사이 간격 */
+  --aboutParaGap:18px;         /* ABOUT에서 문단(p) 기본 간격 */
+  --aboutSectionGap:38px;      /* Education/Exhibitions 같은 섹션 전환 간격 */
+
+  /* ---------- IMAGES ---------- */
+  --homeMax:980px;             /* 홈 메인 이미지 최대 폭 */
+  --heroMaxTall:80vh;          /* 세로 작품 최대 높이 (is-tall일 때) */
+  --thumbSize:92px;            /* 썸네일 크기(데스크탑) */
+  --thumbSizeMobile:76px;      /* 썸네일 크기(모바일) */
 }
 
-/* =======================
+/* =========================================================
    1) BASE
-   ======================= */
+   ========================================================= */
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
@@ -64,10 +71,10 @@ body{
 }
 a{color:inherit;text-decoration:none}
 
-/* =======================
+/* =========================================================
    2) HEADER (brand only)
-   - name은 overlay에 자연스럽게 가려지게(z 낮게)
-   ======================= */
+   - 이름은 overlay에 자연스럽게 가려지게(header는 overlay 아래)
+   ========================================================= */
 .header{
   position:fixed;
   top:0; left:0; right:0;
@@ -76,7 +83,7 @@ a{color:inherit;text-decoration:none}
   justify-content:flex-start;
   padding:var(--headerTop) var(--pad);
   z-index:var(--zHeader);
-  pointer-events:none; /* 헤더는 클릭 방지 */
+  pointer-events:none;
 }
 .brand{
   pointer-events:auto;
@@ -85,10 +92,10 @@ a{color:inherit;text-decoration:none}
   font-size:var(--brandSize);
 }
 
-/* =======================
+/* =========================================================
    3) MENU BUTTON (hamburger ↔ X)
-   - HTML에서 header 밖에 있어야 함
-   ======================= */
+   - HTML에서 header 밖에 있어야 함 (overlay 위에 항상 남음)
+   ========================================================= */
 .menu-btn{
   position:fixed;
   top:var(--headerTop);
@@ -111,7 +118,7 @@ a{color:inherit;text-decoration:none}
   content:"";
   position:absolute;
   left:0; right:0;
-  height:2px;                 /* ✅ 선 두께 */
+  height:2px;                      /* 선 두께 */
   background:var(--text);
   border-radius:2px;
   transform-origin:center;
@@ -122,24 +129,21 @@ a{color:inherit;text-decoration:none}
 .menu-btn .bars::after{bottom:0}
 
 /* hamburger → X */
-body.menu-open .menu-btn .bars::before{
-  transform:translateY(6px) rotate(45deg);
-}
-body.menu-open .menu-btn .bars::after{
-  transform:translateY(-6px) rotate(-45deg);
-}
+body.menu-open .menu-btn .bars::before{transform:translateY(6px) rotate(45deg)}
+body.menu-open .menu-btn .bars::after{transform:translateY(-6px) rotate(-45deg)}
 body.menu-open .menu-btn .bars span{opacity:0}
 
 /* 메뉴 열리면 배경 스크롤 잠금 */
 body.menu-open{overflow:hidden}
 
-/* =======================
+/* =========================================================
    4) OVERLAY MENU
-   ======================= */
+   - 투명도 바꾸고 싶으면 background의 alpha 조절 (.92 부분)
+   ========================================================= */
 .overlay{
   position:fixed;
   inset:0;
-  background:rgba(255,255,255,.70);
+  background:rgba(255,255,255,.75);
   z-index:var(--zOverlay);
   display:flex;
   align-items:center;
@@ -156,7 +160,6 @@ body.menu-open{overflow:hidden}
   pointer-events:auto;
   transition:opacity .18s ease, visibility 0s;
 }
-
 .overlay nav{
   text-align:center;
   letter-spacing:.22em;
@@ -173,9 +176,9 @@ body.menu-open{overflow:hidden}
 }
 .overlay .divider{height:22px}
 
-/* =======================
+/* =========================================================
    5) HOME
-   ======================= */
+   ========================================================= */
 .home-hero{
   min-height:100vh;
   display:flex;
@@ -190,11 +193,11 @@ body.menu-open{overflow:hidden}
   border-radius:2px;
 }
 
-/* =======================
-   6) WORKS PAGE
-   ======================= */
+/* =========================================================
+   6) WORKS
+   ========================================================= */
 .works{
-  padding-top:92px; /* 헤더 공간 */
+  padding-top:var(--worksTop);
   padding-bottom:36px;
 }
 .hero-wrap{
@@ -209,18 +212,18 @@ body.menu-open{overflow:hidden}
   border-radius:2px;
 }
 
-/* 세로 작품만 높이 제한하고 싶을 때 (JS가 is-tall 붙일 때만 적용) */
+/* 세로 작품만 제한하고 싶을 때 (JS가 #hero에 is-tall 붙일 때만 적용) */
 #hero.is-tall{
   max-height:var(--heroMaxTall);
   object-fit:contain;
 }
 
-/* 캡션 */
+/* 캡션: 제목/재료/크기 전부 같은 크기로 */
 .meta{
   width:min(var(--maxw), 100%);
   margin:var(--captionTop) auto 0;
   padding:0 var(--pad);
-  font-size:var(--captionSize); /* ✅ 제목/재료/크기 통일 */
+  font-size:var(--captionSize);
   line-height:1.65;
 }
 .meta .title{
@@ -268,9 +271,9 @@ body.menu-open{overflow:hidden}
 .thumb.active{opacity:1}
 .thumb:active{transform:scale(.98)}
 
-/* =======================
+/* =========================================================
    7) ABOUT / CONTACT
-   ======================= */
+   ========================================================= */
 .page{
   width:min(var(--maxw), 100%);
   margin:0 auto;
@@ -278,36 +281,50 @@ body.menu-open{overflow:hidden}
   font-size:var(--bodySize);
   line-height:1.85;
 }
+
 .page h1{
-  margin:0 0 30px 0;
+  margin:0 0 var(--h1ToBodyGap) 0; /* 제목 ↔ 본문 간격 */
   font-weight:500;
   letter-spacing:.12em;
   font-size:var(--pageTitle);
 }
+
+/* 기본 문단 간격(ABOUT에서 더 세밀하게 컨트롤하고 싶으면 아래 ABOUT 섹션에서 덮어씀) */
 .page p{margin:0 0 18px}
+
+/* ABOUT: 이름 줄만 간격 조절(HTML에서 span.about-name 사용) */
+.about-name{
+  display:inline-block;
+  margin-bottom:var(--aboutNameGap);
+}
+
+/* ABOUT: 문단 간격 통일하고 싶으면 여기 값을 사용 */
+.page.about p{ margin:0 0 var(--aboutParaGap); }
+
+/* CV(education/exhibitions) */
 .page .small{
   color:var(--muted);
   font-size:14px;
-  margin-top:36px;
+  margin-top:var(--aboutSectionGap);
 }
-
-/* CV 리스트(education/exhibitions) */
 .page .cv ul{margin:10px 0 0 18px}
 .page .cv li{margin:10px 0; line-height:1.8}
 
-/* =======================
-   8) RESPONSIVE
-   ======================= */
+/* =========================================================
+   8) RESPONSIVE (항상 맨 아래 두는 게 안전)
+   - 모바일에서도 캡션 크기 동일 유지하려면 --captionSize를 같은 값으로
+   ========================================================= */
 @media (max-width:520px){
   :root{
     --brandSize:18px;
-    --thumbSize:var(--thumbSizeMobile);
-    --menuSize:20px;     /* 필요하면 20px로 줄여도 됨 */
-    --subMenuSize:18px;
-    --pageTitle:18px;
+
+    --pageTitle:30px;
     --bodySize:15px;
-    --captionSize:11px;  /* ✅ 모바일도 동일 크기 유지 */
+
+    --thumbSize:var(--thumbSizeMobile);
     --thumbPadX:18px;
     --thumbGap:14px;
+
+    --captionSize:11.5px; /* ✅ 모바일도 동일 */
   }
 }
