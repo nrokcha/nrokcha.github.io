@@ -1,20 +1,29 @@
 [
   {
-    "id": "2024_01",
-    "title": "Wherever Your Mother's Shadow Falls",
-    "year": "2024",
-    "medium": "oil on ACM panel",
-    "size": "14 x 11 in.",
-    "image": "assets/img/works/2024_01.svg",
-    "thumb": "assets/img/works/2024_01_thumb.svg"
+    "id": "2025_01",
+    "title": "아크로폴리스의 암벽 The Acropolis Cliff",
+    "year": "2025",
+    "medium": "acrylic, ink and oil on poly-cotton",
+    "size": "231.5 x 324.1 cm",
+    "image": "assets/img/works/1_아크로폴리스의암벽.jpg",
+    "thumb": "assets/img/works/1_아크로폴리스의암벽.jpg"
   },
   {
-    "id": "2024_02",
-    "title": "Just Call It Horizon",
-    "year": "2024",
-    "medium": "oil on ACM panel",
-    "size": "14 x 11 in.",
-    "image": "assets/img/works/2024_02.svg",
-    "thumb": "assets/img/works/2024_02_thumb.svg"
-  }
+    "id": "2025_02",
+    "title": "종합장Ⅰ JonghapjangⅠ",
+    "year": "2025",
+    "medium": "acrylic, ink, gesso and oil on linen",
+    "size": "163.5 x 261.5 cm",
+    "image": "assets/img/works/2_종합장Ⅰ.jpg",
+    "thumb": "assets/img/works/2_종합장Ⅰ.jpg"
+  },
+   {
+    "id": "2025_03",
+    "title": "퍼레이드 Parade",
+    "year": "2025",
+    "medium": "acrylic, ink and oil on linen",
+    "size": "151.5 x 140.1 cm",
+    "image": "assets/img/works/3_퍼레이드.jpg",
+    "thumb": "assets/img/works/3_퍼레이드.jpg"
+  },
 ]
