@@ -2,8 +2,7 @@
 (function(){
   const btn = document.querySelector('[data-menu-open]');
   const overlay = document.getElementById('menuOverlay');
-  const close = overlay?.querySelector('[data-menu-close]');
-  if(!btn || !overlay || !close) return;
+  if(!btn || !overlay) return;
 
   const open = ()=>{
     overlay.classList.add('open');
