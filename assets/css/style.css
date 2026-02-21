@@ -11,7 +11,7 @@
   /* COLORS */
   --bg:#ffffff;
   --text:#3d3d3d;        /* 기본 글자(차콜) */
-  --muted:#5f5f5f;       /* 보조 텍스트 */
+  --muted:#707070;       /* 보조 텍스트 */
   --hair:rgba(0,0,0,.08);
 
   /* LAYOUT */
@@ -20,32 +20,32 @@
   --headerTop:18px;      /* 상단 여백(헤더/버튼 위치) */
 
   /* TYPOGRAPHY (전체 폰트 크기들) */
-  --brandSize:20px;      /* 왼쪽 상단 이름 */
-  --menuSize:22px;       /* 오버레이 메뉴 WORKS/ABOUT/CONTACT */
-  --subMenuSize:18px;    /* 오버레이 연도 */
-  --pageTitle:32px;      /* ABOUT/CONTACT 페이지 제목 */
-  --bodySize:15.5px;     /* ABOUT/CONTACT 본문 */
-  --captionSize:15px;    /* WORKS 캡션(제목/재료/크기 전부 통일) */
+  --brandSize:22px;      /* 왼쪽 상단 이름 */
+  --menuSize:20px;       /* 오버레이 메뉴 WORKS/ABOUT/CONTACT */
+  --subMenuSize:17px;    /* 오버레이 연도 */
+  --pageTitle:20px;      /* ABOUT/CONTACT 페이지 제목 */
+  --bodySize:12px;     /* ABOUT/CONTACT 본문 */
+  --captionSize:9px;    /* WORKS 캡션(제목/재료/크기 전부 통일) */
 
   /* SPACING (간격) */
-  --captionTop:18px;     /* 작품 이미지 ↔ 캡션 사이 */
-  --thumbTop:18px;       /* 캡션 ↔ 썸네일 줄 사이 */
+  --captionTop:30px;     /* 작품 이미지 ↔ 캡션 사이 */
+  --thumbTop:60px;       /* 캡션 ↔ 썸네일 줄 사이 */
   --thumbPadY:12px;      /* 썸네일 strip 위아래 여백 */
   --thumbPadX:28px;      /* 썸네일 strip 좌우 여백 */
-  --thumbGap:18px;       /* 썸네일 사이 간격 */
+  --thumbGap:10px;       /* 썸네일 사이 간격 */
   --pageTop:110px;       /* ABOUT/CONTACT 페이지 상단 여백 */
   --pageBottom:60px;
 
   /* IMAGES */
   --homeMax:980px;       /* 메인 이미지 최대 폭 */
-  --heroMaxTall:72vh;    /* 세로 작품 최대 높이(필요시) */
+  --heroMaxTall:80vh;    /* 세로 작품 최대 높이(필요시) */
   --thumbSize:92px;      /* 썸네일 크기 */
   --thumbSizeMobile:76px;
 
   /* LAYER */
   --zHeader:20;
   --zOverlay:40;
-  --zMenuBtn:9999;
+  --zMenuBtn:60;
 
   /* FONT STACK */
   --font:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,"Noto Sans KR","Apple SD Gothic Neo",sans-serif;
