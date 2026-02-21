@@ -34,7 +34,7 @@
   --thumbPadX:28px;      /* 썸네일 strip 좌우 여백 */
   --thumbGap:10px;       /* 썸네일 사이 간격 */
   --pageTop:110px;       /* ABOUT/CONTACT 페이지 상단 여백 */
-  --pageBottom:60px;
+  --pageBottom:90px;
 
   /* IMAGES */
   --homeMax:980px;       /* 메인 이미지 최대 폭 */
@@ -139,7 +139,7 @@ body.menu-open{overflow:hidden}
 .overlay{
   position:fixed;
   inset:0;
-  background:rgba(255,255,255,.50);
+  background:rgba(255,255,255,.70);
   z-index:var(--zOverlay);
   display:flex;
   align-items:center;
