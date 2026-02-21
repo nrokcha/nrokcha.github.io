@@ -181,17 +181,24 @@ a{color:inherit;text-decoration:none}
   width:min(var(--maxw), 100%);
   margin:0 auto;
   padding:110px var(--pad) 60px;
-  line-height:1.8;
+  font-size:15px;     /* ⭐️ 전체 글씨 크기 */
+  line-height:1.85;   /* ⭐️ 줄간격 */
 }
 .page h1{
   margin:0 0 18px 0;
   font-weight:500;
-  letter-spacing:.08em;
+  letter-spacing:.12em;
+  font-size:32px;   /* ⭐️ 제목 크기 */
 }
-.page p{margin:0 0 14px}
+.page p{
+  margin:0 0 18px;   /* 문단 간격 ↑ */
+}
 .page .small{color:var(--muted); font-size:14px}
 .page .cv ul{margin:10px 0 0 18px}
-.page .cv li{margin:6px 0}
+.page .cv li{
+  margin:10px 0;     /* ⭐️ 줄 사이 간격 */
+  line-height:1.8;   /* ⭐️ 줄간격 */
+}
 
 /* ✅ tall work*/
 #hero.is-tall{
