@@ -98,9 +98,6 @@ function getScaleClassFromCm(sizeStr){
     hero.src = w.image;
     hero.alt = w.title;
 
-    // 세로작품이면 CSS 제한 적용
-    hero.classList.toggle("is-tall", !!w.tall);
-
     /* --- TEXT --- */
     title.textContent  = `${w.title}, ${w.year}`;
     medium.textContent = w.medium;
