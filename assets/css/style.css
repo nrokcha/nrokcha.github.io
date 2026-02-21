@@ -1,0 +1,194 @@
+
+:root{
+  --bg:#fff;
+  --fg:#111;
+  --muted:#666;
+  --hair:#e9e9e9;
+  --maxw: 980px;
+  --pad: 22px;
+  --font: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,"Noto Sans KR","Apple SD Gothic Neo",sans-serif;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:var(--font);
+  color:var(--fg);
+  background:var(--bg);
+}
+a{color:inherit;text-decoration:none}
+.header{
+  position:fixed; top:0; left:0; right:0;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:18px var(--pad);
+  z-index:20;
+  pointer-events:none;
+}
+.brand, .menu-btn{pointer-events:auto}
+.brand{
+  letter-spacing:.14em;
+  font-weight:500;
+  font-size:22px;
+}
+.menu-btn{
+  width:54px; height:54px;
+  border:0; background:rgba(255,255,255,.85);
+  border-radius:999px;
+  display:grid; place-items:center;
+  box-shadow:0 2px 14px rgba(0,0,0,.08);
+}
+.menu-btn .bars{
+  width:22px; height:14px; position:relative;
+}
+.menu-btn .bars::before,
+.menu-btn .bars::after,
+.menu-btn .bars span{
+  content:"";
+  position:absolute; left:0; right:0;
+  height:2px; background:#111; border-radius:2px;
+}
+.menu-btn .bars::before{top:0}
+.menu-btn .bars span{top:6px}
+.menu-btn .bars::after{bottom:0}
+
+/* overlay menu */
+.overlay{
+  position:fixed; inset:0;
+  background:rgba(255,255,255,.92);
+  z-index:40;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0; visibility:hidden; pointer-events:none;
+  transition:opacity .18s ease, visibility .18s ease;
+}
+.overlay.open{opacity:1; visibility:visible; pointer-events:auto}
+.overlay .close{
+  position:absolute; top:18px; right:18px;
+  width:54px; height:54px;
+  border:0; background:transparent;
+  font-size:42px; line-height:1;
+}
+.overlay nav{
+  text-align:center;
+  letter-spacing:.22em;
+}
+.overlay nav a{
+  display:block;
+  padding:10px 0;
+  font-size:22px;
+}
+.overlay nav .sub a{
+  font-size:18px;
+  letter-spacing:.18em;
+  color:#222;
+}
+.overlay .divider{height:22px}
+
+/* pages */
+.main{
+  padding-top:92px;
+}
+.center{
+  width:min(var(--maxw), 100%);
+  margin:0 auto;
+  padding:0 var(--pad);
+}
+
+.home-hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 var(--pad);
+}
+.home-hero img{
+  width:min(980px, 100%);
+  height:auto;
+  display:block;
+  border-radius:2px;
+}
+
+/* works */
+.works{
+  padding-top:92px;
+}
+.hero-wrap{
+  width:min(var(--maxw), 100%);
+  margin:0 auto;
+  padding:0 var(--pad);
+}
+.hero{
+  width:100%;
+  height:auto;
+  display:block;
+  border-radius:2px;
+}
+.meta{
+  width:min(var(--maxw), 100%);
+  margin:18px auto 0;
+  padding:0 var(--pad);
+  color:#222;
+  line-height:1.6;
+}
+.meta .title{
+  font-style:italic;
+  font-size:20px;
+  margin-bottom:6px;
+}
+.meta .line{font-size:18px; color:#222}
+.meta .muted{color:var(--muted)}
+
+.thumb-strip{
+  width:min(var(--maxw), 100%);
+  margin:22px auto 0;
+  padding:0 var(--pad) 26px;
+  display:flex;
+  gap:14px;
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:thin;
+}
+.thumb-strip::-webkit-scrollbar{height:8px}
+.thumb-strip::-webkit-scrollbar-thumb{background:rgba(0,0,0,.18); border-radius:999px}
+.thumb{
+  border:0;
+  background:transparent;
+  padding:0;
+  opacity:.55;
+  transition:opacity .12s ease, transform .12s ease;
+  flex:0 0 auto;
+}
+.thumb img{
+  width:92px; height:92px; object-fit:cover;
+  display:block;
+  border:1px solid rgba(0,0,0,.06);
+  background:#fafafa;
+}
+.thumb.active{opacity:1}
+.thumb:active{transform:scale(.98)}
+
+/* about/contact */
+.page{
+  width:min(var(--maxw), 100%);
+  margin:0 auto;
+  padding:110px var(--pad) 60px;
+  line-height:1.8;
+}
+.page h1{
+  margin:0 0 18px 0;
+  font-weight:500;
+  letter-spacing:.08em;
+}
+.page p{margin:0 0 14px}
+.page .small{color:var(--muted); font-size:14px}
+.page .cv ul{margin:10px 0 0 18px}
+.page .cv li{margin:6px 0}
+
+/* responsive */
+@media (max-width:520px){
+  .brand{font-size:18px}
+  .meta .title{font-size:18px}
+  .meta .line{font-size:16px}
+  .thumb img{width:76px;height:76px}
+}
