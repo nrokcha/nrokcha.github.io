@@ -32,7 +32,7 @@
   --subMenuSize:16px;          /* 오버레이 연도 */
   --pageTitle:28px;            /* ABOUT/CONTACT 제목 */
   --bodySize:12.5px;           /* ABOUT/CONTACT 본문 */
-  --captionSize:11.5px;          /* WORKS 캡션(제목/재료/크기 통일) */
+  --captionSize:11.5px;        /* WORKS 캡션(제목/재료/크기 통일) */
 
   /* ---------- SPACING (간격) ---------- */
   --worksTop:92px;             /* works 페이지 상단(헤더 공간) */
@@ -53,7 +53,7 @@
 
   /* ---------- IMAGES ---------- */
   --homeMax:980px;             /* 홈 메인 이미지 최대 폭 */
-  --heroMaxTall:80vh;          /* 세로 작품 최대 높이 (is-tall일 때) */
+  --heroMaxTall:84vh;          /* 세로 작품 최대 높이 (is-tall일 때) */
   --thumbSize:92px;            /* 썸네일 크기(데스크탑) */
   --thumbSizeMobile:76px;      /* 썸네일 크기(모바일) */
 }
