@@ -193,8 +193,17 @@ a{color:inherit;text-decoration:none}
 .page p{
   margin:0 0 18px;   /* 문단 간격 ↑ */
 }
-.page .small{color:var(--muted); font-size:14px}
-.page .cv ul{margin:10px 0 0 18px}
+.page .small{
+  margin-top:40px;
+  font-size:14px;
+  color:var(--muted);
+}
+.page .cv ul{
+  margin:10px 0 0 18px;
+}
+.page .cv ul + .small{
+  margin-top:38px;
+}
 .page .cv li{
   margin:10px 0;     /* ⭐️ 줄 사이 간격 */
   line-height:1.8;   /* ⭐️ 줄간격 */
