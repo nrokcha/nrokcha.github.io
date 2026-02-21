@@ -20,12 +20,12 @@
   --headerTop:18px;      /* 상단 여백(헤더/버튼 위치) */
 
   /* TYPOGRAPHY (전체 폰트 크기들) */
-  --brandSize:22px;      /* 왼쪽 상단 이름 */
-  --menuSize:20px;       /* 오버레이 메뉴 WORKS/ABOUT/CONTACT */
+  --brandSize:20px;      /* 왼쪽 상단 이름 */
+  --menuSize:21px;       /* 오버레이 메뉴 WORKS/ABOUT/CONTACT */
   --subMenuSize:17px;    /* 오버레이 연도 */
   --pageTitle:20px;      /* ABOUT/CONTACT 페이지 제목 */
   --bodySize:12px;     /* ABOUT/CONTACT 본문 */
-  --captionSize:9px;    /* WORKS 캡션(제목/재료/크기 전부 통일) */
+  --captionSize:11px;    /* WORKS 캡션(제목/재료/크기 전부 통일) */
 
   /* SPACING (간격) */
   --captionTop:30px;     /* 작품 이미지 ↔ 캡션 사이 */
@@ -139,7 +139,7 @@ body.menu-open{overflow:hidden}
 .overlay{
   position:fixed;
   inset:0;
-  background:rgba(255,255,255,.92);
+  background:rgba(255,255,255,.50);
   z-index:var(--zOverlay);
   display:flex;
   align-items:center;
@@ -226,7 +226,7 @@ body.menu-open{overflow:hidden}
 .meta .title{
   font-style:italic;
   color:rgba(0,0,0,.72);
-  margin:0 0 8px 0;
+  margin:0;
 }
 .meta .line{
   color:rgba(0,0,0,.62);
@@ -302,11 +302,11 @@ body.menu-open{overflow:hidden}
   :root{
     --brandSize:18px;
     --thumbSize:var(--thumbSizeMobile);
-    --menuSize:22px;     /* 필요하면 20px로 줄여도 됨 */
+    --menuSize:20px;     /* 필요하면 20px로 줄여도 됨 */
     --subMenuSize:18px;
-    --pageTitle:30px;
+    --pageTitle:18px;
     --bodySize:15px;
-    --captionSize:15px;  /* ✅ 모바일도 동일 크기 유지 */
+    --captionSize:11px;  /* ✅ 모바일도 동일 크기 유지 */
     --thumbPadX:18px;
     --thumbGap:14px;
   }
