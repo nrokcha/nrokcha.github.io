@@ -21,7 +21,7 @@ a{color:inherit;text-decoration:none}
   position:fixed; top:0; left:0; right:0;
   display:flex; align-items:center; justify-content:space-between;
   padding:18px var(--pad);
-  z-index:20;
+  z-index:50;
   pointer-events:none;
 }
 .brand, .menu-btn{pointer-events:auto}
