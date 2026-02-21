@@ -301,3 +301,14 @@ body.menu-open{ overflow:hidden; }
     gap:14px;
   }
 }
+
+/* FORCE: menu button always above overlay */
+.menu-btn{
+  position: fixed !important;
+  top: 18px !important;
+  right: var(--pad) !important;
+  z-index: 2147483647 !important;
+}
+.menu-btn, .menu-btn *{
+  pointer-events: auto !important;
+}
