@@ -1,6 +1,6 @@
 [
   {
-    "id": "Diving_01",
+    "id": "diving_01",
     "seriesName": "Diving",
     "seriesSlug": "diving",
     "title": "아크로폴리스의 암벽 The Acropolis Cliff",
@@ -11,7 +11,7 @@
     "thumb": "assets/img/works/1_아크로폴리스의암벽.jpg"
   },
   {
-    "id": "Diving_02",
+    "id": "diving_02",
     "seriesName": "Diving",
     "seriesSlug": "diving",
     "title": "종합장Ⅰ JonghapjangⅠ",
@@ -22,7 +22,7 @@
     "thumb": "assets/img/works/2_종합장Ⅰ.jpg"
   },
   {
-    "id": "Diving_03",
+    "id": "diving_03",
     "seriesName": "Diving",
     "seriesSlug": "diving",
     "title": "퍼레이드 Parade",
@@ -31,5 +31,16 @@
     "size": "151.5 x 140.1 cm",
     "image": "assets/img/works/3_퍼레이드.jpg",
     "thumb": "assets/img/works/3_퍼레이드.jpg"
+  },
+  {
+    "id": "triggers_01",
+    "seriesName": "Triggers",
+    "seriesSlug": "triggers",
+    "title": "오후 네 시 4 p.m.",
+    "year": "2024",
+    "medium": "ink, acrylic and oil on cotton",
+    "size": "83.0 x 71.0 cm",
+    "image": "assets/img/works/4_오후네시.jpg",
+    "thumb": "assets/img/works/4_오후네시.jpg"
   }
 ]
