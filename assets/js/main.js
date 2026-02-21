@@ -4,24 +4,25 @@
   const overlay = document.getElementById('menuOverlay');
   if(!btn || !overlay) return;
 
-  const open = ()=>{
-    overlay.classList.add('open');
-    document.body.classList.add('menu-open');     // ✅ 추가: 메뉴 열릴 때 X로
-  };
-
-  const shut = ()=>{
-    overlay.classList.remove('open');
-    document.body.classList.remove('menu-open');  // ✅ 추가: 메뉴 닫힐 때 햄버거로
-  };
-
-  btn.addEventListener('click', open);
-  close.addEventListener('click', shut);
-
-  overlay.addEventListener('click', (e)=>{
-    if(e.target === overlay) shut();
+  // ⭐️ 햄버거 = 열기 + 닫기 동시에 처리
+  btn.addEventListener('click', ()=>{
+    const isOpen = overlay.classList.toggle('open');
+    document.body.classList.toggle('menu-open', isOpen);
   });
 
+  // ⭐️ 오버레이 배경 클릭하면 닫기
+  overlay.addEventListener('click', (e)=>{
+    if(e.target === overlay){
+      overlay.classList.remove('open');
+      document.body.classList.remove('menu-open');
+    }
+  });
+
+  // ⭐️ ESC 키 닫기
   document.addEventListener('keydown', (e)=>{
-    if(e.key === 'Escape') shut();
+    if(e.key === 'Escape'){
+      overlay.classList.remove('open');
+      document.body.classList.remove('menu-open');
+    }
   });
 })();
