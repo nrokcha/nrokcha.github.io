@@ -5,8 +5,15 @@
   const close = overlay?.querySelector('[data-menu-close]');
   if(!btn || !overlay || !close) return;
 
-  const open = ()=> overlay.classList.add('open');
-  const shut = ()=> overlay.classList.remove('open');
+  const open = ()=>{
+    overlay.classList.add('open');
+    document.body.classList.add('menu-open');     // ✅ 추가: 메뉴 열릴 때 X로
+  };
+
+  const shut = ()=>{
+    overlay.classList.remove('open');
+    document.body.classList.remove('menu-open');  // ✅ 추가: 메뉴 닫힐 때 햄버거로
+  };
 
   btn.addEventListener('click', open);
   close.addEventListener('click', shut);
@@ -18,10 +25,4 @@
   document.addEventListener('keydown', (e)=>{
     if(e.key === 'Escape') shut();
   });
-  
-  overlay.classList.add("open");
-  document.body.classList.add("menu-open");   // ⭐️ 메뉴 열기
-  overlay.classList.remove("open");
-  document.body.classList.remove("menu-open"); // ⭐️ 메뉴 닫기
-  
 })();
