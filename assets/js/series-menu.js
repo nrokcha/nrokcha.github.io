@@ -1,19 +1,28 @@
 /* =========================================================
-   SERIES MENU (global) — series 기준
-   - data/works.json을 읽어서 WORKS 아래 시리즈 목록 자동 생성
-   - works.html#<series-slug> 로 이동 (예: #Diving)
+   SERIES MENU (global) — seriesName/seriesSlug 기준 (최종)
+   - 모든 페이지에서 WORKS 아래 시리즈 목록을 자동 생성
+   - works.json: seriesName(표기용), seriesSlug(링크용) 필수
+   - 링크: works.html#s=<seriesSlug>
 ========================================================= */
 
 (function(){
 
-  function slugify(str){
-    return String(str || '')
-      .trim()
-      .toLowerCase()
-      .replace(/&/g,'and')
-      .replace(/[\s\/]+/g,'-')
-      .replace(/[^\w\-가-힣]/g,'')   // 영문/숫자/_/-/한글만 남김
-      .replace(/\-+/g,'-');
+  function uniqSeriesBySlug(works){
+    const seen = new Set();
+    const list = [];
+
+    works.forEach(w=>{
+      const slug = String(w.seriesSlug || '').trim();
+      const name = String(w.seriesName || '').trim();
+
+      if(!slug) return;                 // slug 없으면 메뉴에 못 넣음
+      if(seen.has(slug)) return;
+
+      seen.add(slug);
+      list.push({ slug, name: name || slug });
+    });
+
+    return list;
   }
 
   async function buildSeriesMenu(){
@@ -29,29 +38,31 @@
       return;
     }
 
-    // series 목록 추출 (없으면 Unsorted)
-    const seriesList = works
-      .map(w => (w.series && String(w.series).trim()) ? String(w.series).trim() : 'Unsorted');
+    if(!Array.isArray(works) || works.length === 0){
+      holder.innerHTML = '';
+      return;
+    }
 
-    const unique = [...new Set(seriesList)];
+    const seriesList = uniqSeriesBySlug(works);
 
-    // 정렬: Unsorted는 맨 아래, 나머지는 가나다/알파벳
-    unique.sort((a,b)=>{
-      if(a === 'Unsorted') return 1;
-      if(b === 'Unsorted') return -1;
-      return a.localeCompare(b, 'ko');
+    holder.innerHTML = '';
+
+    // ALL
+    const all = document.createElement('a');
+    all.href = 'works.html';
+    all.textContent = 'ALL';
+    holder.appendChild(all);
+
+    // series
+    seriesList.forEach(({slug, name})=>{
+      const a = document.createElement('a');
+      a.href = `works.html#s=${encodeURIComponent(slug)}`;
+      a.textContent = name;   // ✅ 화면에는 seriesName 그대로(한글/특수문자 OK)
+      holder.appendChild(a);
     });
-
-    holder.innerHTML = unique.map(name=>{
-      const slug = slugify(name);
-      return `<a href="works.html#${encodeURIComponent(slug)}">${name}</a>`;
-    }).join('');
   }
 
-  // menu-loader가 메뉴 삽입한 뒤 실행
   document.addEventListener('menu:loaded', buildSeriesMenu);
-
-  // 혹시를 대비해 한 번 더
   window.addEventListener('DOMContentLoaded', buildSeriesMenu);
 
 })();
