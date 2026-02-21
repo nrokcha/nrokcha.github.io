@@ -287,8 +287,13 @@ body.menu-open{ overflow:hidden; }
 ========================================================= */
 @media (max-width:520px){
   .brand{ font-size:18px; }
-  .meta .title{ font-size:15px; }
-  .meta .line{ font-size:13px; }
+  .meta{
+  width:min(var(--maxw), 100%);
+  margin:22px auto 0;
+  padding:0 var(--pad);
+  line-height:1.6;
+  font-size:12px;    
+}
   .thumb img{ width:76px; height:76px; }
   .thumb-strip{
     padding-left:18px;
