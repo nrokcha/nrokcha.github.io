@@ -212,6 +212,22 @@ body.menu-open{overflow:hidden}
   border-radius:2px;
 }
 
+/* === WORK SCALE (based on real cm size) ==================
+   works.js가 hero-wrap에 .s-xl / .s-l / .s-m / .s-s / .s-xs 를 붙임
+   → max-width로 “존재감”을 조금씩 다르게
+=========================================================== */
+
+.hero-wrap{
+  /* 기존 그대로 두되, 아래 max-width는 클래스로 조절됨 */
+}
+
+/* 화면 폭 안에서만 커지고 줄어들게 */
+.hero-wrap.s-xl{ max-width: 1120px; }
+.hero-wrap.s-l { max-width: 1020px; }
+.hero-wrap.s-m { max-width: 920px;  }
+.hero-wrap.s-s { max-width: 820px;  }
+.hero-wrap.s-xs{ max-width: 740px;  }
+
 /* 세로 작품만 제한하고 싶을 때 (JS가 #hero에 is-tall 붙일 때만 적용) */
 #hero.is-tall{
   max-height:var(--heroMaxTall);
@@ -327,4 +343,14 @@ body.menu-open{overflow:hidden}
 
     --captionSize:11.5px; /* ✅ 모바일도 동일 */
   }
+
+  /* ⭐️ WORK SCALE - mobile override */
+  .hero-wrap.s-xl,
+  .hero-wrap.s-l,
+  .hero-wrap.s-m,
+  .hero-wrap.s-s,
+  .hero-wrap.s-xs{
+    max-width:100%;
+  }
+   
 }
