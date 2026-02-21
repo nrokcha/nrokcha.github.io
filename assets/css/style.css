@@ -252,6 +252,17 @@ body.menu-open{overflow:hidden}
   margin:0;
 }
 
+/* 시리즈 라벨series label above thumbnails */
+.series-title{
+  width:min(var(--maxw), 100%);
+  margin: var(--thumbTop) auto 10px;       /* 썸네일과 간격 조절 */
+  padding:0 var(--pad);
+  font-size:12.5px;            /* 원하는 크기로 조절 */
+  letter-spacing:.10em;
+  color:rgba(0,0,0,.70);     /* 더 진하게: .85 / 완전 차콜: var(--text) */
+  text-transform:uppercase;  /* 원하면 지워도 됨 */
+}
+
 /* 썸네일 strip */
 .thumb-strip{
   width:min(var(--maxw), 100%);
