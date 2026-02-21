@@ -18,4 +18,10 @@
   document.addEventListener('keydown', (e)=>{
     if(e.key === 'Escape') shut();
   });
+  
+  overlay.classList.add("open");
+  document.body.classList.add("menu-open");   // ⭐️ 메뉴 열기
+  overlay.classList.remove("open");
+  document.body.classList.remove("menu-open"); // ⭐️ 메뉴 닫기
+  
 })();
