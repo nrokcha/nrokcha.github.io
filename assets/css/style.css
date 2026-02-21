@@ -21,7 +21,7 @@ a{color:inherit;text-decoration:none}
   position:fixed; top:0; left:0; right:0;
   display:flex; align-items:center; justify-content:space-between;
   padding:18px var(--pad);
-  z-index:20;
+  z-index:20;                 /* overlay(40) 아래: 로고는 자연스럽게 가려짐 */
   pointer-events:none;
 }
 .brand, .menu-btn{pointer-events:auto}
@@ -30,20 +30,36 @@ a{color:inherit;text-decoration:none}
   font-weight:400;
   font-size:20px;
 }
+
+/* menu button (hamburger / X) */
 .menu-btn{
-  width:36px; height:24px;   /* 버튼 영역만 */
+  /* 👇 시각적 크기(선만 남기기) */
+  width:36px; height:24px;
   border:0;
-  background:transparent;    /* ⭐️ 원형 제거 */
-  border-radius:0;           /* ⭐️ 둥근 모양 제거 */
-  box-shadow:none;           /* ⭐️ 그림자 제거 */
+  background:transparent;
+  border-radius:0;
+  box-shadow:none;
+
   display:grid;
   place-items:center;
+
+  /* 👇 overlay 위로 (X는 항상 보이게) */
   position:relative;
-  z-index:60;            /* overlay(40)보다 높게 */
+  z-index:60;
+
+  cursor:pointer;
+  -webkit-tap-highlight-color: transparent;
 }
+
+/* ✅ 모바일에서 누르기 쉽게 '실제 클릭 영역'을 키우고 싶으면 (선택)
+   시각적 크기는 유지하고, 터치 영역만 44px로:
+   .menu-btn{ width:44px; height:44px; }
+   .menu-btn .bars{ transform:scale(.82); }
+*/
+
 .menu-btn .bars{
   width:22px;
-  height:14px;           /* ⭐️ 높이 기준 먼저 잡기 */
+  height:14px;
   position:relative;
 }
 
@@ -54,27 +70,27 @@ a{color:inherit;text-decoration:none}
   position:absolute;
   left:0;
   right:0;
-  height:2px;            
+  height:2px;                 /* ✅ 두께 */
   background:#2f2f2f;
   border-radius:2px;
+
+  transform-origin:center;     /* ✅ 회전 중심 고정 */
   transition:transform .25s ease, opacity .25s ease;
 }
 
 .menu-btn .bars::before{ top:0; }
-.menu-btn .bars span{ top:50%; transform:translateY(-50%); } /* ⭐️ 중앙 정렬 방식 변경 */
+.menu-btn .bars span{ top:50%; transform:translateY(-50%); }
 .menu-btn .bars::after{ bottom:0; }
 
 /* hamburger → X (same button, same position) */
 body.menu-open .menu-btn .bars::before{
   transform: translateY(6px) rotate(45deg);
 }
-
 body.menu-open .menu-btn .bars::after{
   transform: translateY(-6px) rotate(-45deg);
 }
-
 body.menu-open .menu-btn .bars span{
-  opacity: 0;
+  opacity:0;
 }
 
 /* overlay menu */
@@ -82,19 +98,31 @@ body.menu-open .menu-btn .bars span{
   position:fixed; inset:0;
   background:rgba(255,255,255,.92);
   z-index:40;
+
   display:flex;
   align-items:center;
   justify-content:center;
-  opacity:0; visibility:hidden; pointer-events:none;
-  transition:opacity .18s ease, visibility .18s ease;
+
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+
+  transition:opacity .18s ease, visibility 0s linear .18s;
 }
-.overlay.open{opacity:1; visibility:visible; pointer-events:auto}
-.overlay .close{
-  position:absolute; top:18px; right:18px;
-  width:54px; height:54px;
-  border:0; background:transparent;
-  font-size:42px; line-height:1;
+.overlay.open{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+  transition:opacity .18s ease, visibility 0s;
 }
+
+/* ✅ overlay 열릴 때 배경 스크롤 방지 (강추)
+   main.js에서 body.menu-open이 붙으니 이 CSS만 추가하면 됨 */
+body.menu-open{
+  overflow:hidden;
+}
+
+
 .overlay nav{
   text-align:center;
   letter-spacing:.22em;
@@ -110,7 +138,6 @@ body.menu-open .menu-btn .bars span{
   color:#222;
 }
 .overlay .divider{height:22px}
-
 /* pages */
 .main{
   padding-top:92px;
