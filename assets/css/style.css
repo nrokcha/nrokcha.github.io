@@ -193,7 +193,7 @@ a{color:inherit;text-decoration:none}
   .thumb img{width:76px;height:76px}
 }
 
-#hero.is-tall{
-  max-height: 85vh;
-  object-fit: contain;
+#hero{
+  max-height:72vh;
+  object-fit:contain;
 }
