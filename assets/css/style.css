@@ -29,7 +29,7 @@
   /* ---------- TYPOGRAPHY (크기) ---------- */
   --brandSize:20px;            /* 왼쪽 상단 이름 */
   --menuSize:22px;             /* 오버레이 메뉴 WORKS/ABOUT/CONTACT */
-  --subMenuSize:18px;          /* 오버레이 연도 */
+  --subMenuSize:16px;          /* 오버레이 연도 */
   --pageTitle:28px;            /* ABOUT/CONTACT 제목 */
   --bodySize:12.5px;           /* ABOUT/CONTACT 본문 */
   --captionSize:11.5px;          /* WORKS 캡션(제목/재료/크기 통일) */
