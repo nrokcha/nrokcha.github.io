@@ -138,9 +138,26 @@ function getScaleClassFromCm(sizeStr){
   /* ======================================================
      7) INIT
      ====================================================== */
-  const fromHash = decodeURIComponent(location.hash.replace('#',''));
-  const initial = works.find(w=>w.id===fromHash) || works[0];
-  setWork(initial);
+ function pickInitialWorkFromHash(works){
+  const raw = decodeURIComponent(location.hash.replace('#','')).trim();
+  if(!raw) return works[0];
+
+  // 1) 작품 id(#2025_01)로 들어온 경우
+  const byId = works.find(w => w.id === raw);
+  if(byId) return byId;
+
+  // 2) 연도(#2026)로 들어온 경우 → 그 연도의 "첫 작품" 선택
+  if(/^\d{4}$/.test(raw)){
+    const byYear = works.find(w => String(w.year) === raw);
+    if(byYear) return byYear;
+  }
+
+  // 3) 못 찾으면 기본 첫 작품
+  return works[0];
+}
+
+const initial = pickInitialWorkFromHash(works);
+setWork(initial);
 
 
   /* ======================================================
