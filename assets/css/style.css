@@ -194,6 +194,6 @@ a{color:inherit;text-decoration:none}
 }
 
 #hero.is-tall{
-  max-height: 65vh;
+  max-height: 75vh;
   object-fit: contain;
 }
