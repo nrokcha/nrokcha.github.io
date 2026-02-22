@@ -128,8 +128,21 @@ function uniqSeriesBySlug(works){
   const strip       = document.getElementById('thumbStrip');
   const heroWrap    = document.querySelector('.hero-wrap');
 
-  const seriesTitle = document.getElementById('seriesTitle');
-  const seriesMenu  = document.getElementById('seriesMenu');
+ const seriesTitle = document.getElementById('seriesTitle');
+ const seriesMenu  = document.getElementById('seriesMenu');
+ const seriesTextEl = document.getElementById('seriesText'); // ← 이것도 같이
+
+ /* ===================== SERIES TEXT ===================== */
+ function setSeriesText(seriesSlug){
+  if(!seriesTextEl) return;
+
+  const w = works.find(x =>
+    String(x.seriesSlug||'').trim() === String(seriesSlug||'').trim()
+    && x.seriesText
+  );
+
+  seriesTextEl.innerHTML = w ? w.seriesText : '';
+}
 
   if(!hero || !titleEl || !mediumEl || !sizeEl || !strip || !heroWrap) return;
 
@@ -211,6 +224,8 @@ function uniqSeriesBySlug(works){
   function applyFromHash(){
     const state = pickStateFromHash();
 
+    setSeriesText(state.shownSlug);
+     
     renderThumbs(state.list, { seriesSlug: state.shownSlug });
     setWork(state.selected, { seriesSlug: state.shownSlug });
 
