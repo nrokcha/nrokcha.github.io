@@ -71,7 +71,7 @@
 --footnoteTop:18px;
 --footnoteSize:10px;
 --footnoteLH:1.8;
---footnoteGap:6px;        /* 각주 항목(1과 2 사이) 간격 */
+--footnoteGap:3px;        /* 각주 항목(1과 2 사이) 간격 */
 --footnoteColor:var(--muted);
 
 }
