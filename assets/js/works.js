@@ -122,7 +122,8 @@ function buildHash({ seriesSlug, workId }){
     }
 
     seriesTextEl.style.display = '';
-    seriesTextEl.innerHTML = w.seriesText;
+    const inner = seriesTextEl.querySelector('.series-text-inner');
+    inner.innerHTML = w.seriesText;
   }
 
 
