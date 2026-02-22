@@ -100,47 +100,23 @@ function buildHash({ seriesSlug, workId }){
 
   /* ===================== SERIES TEXT ===================== */
 
-function setSeriesText(seriesSlug){
-  if(!seriesTextEl) return;
+  function setSeriesText(seriesSlug){
+    if(!seriesTextEl) return;
 
-  // inner 없으면 만들어서라도 넣기 (깨짐 방지)
-  let inner = seriesTextEl.querySelector('.series-text-inner');
-  if(!inner){
-    inner = document.createElement('div');
-    inner.className = 'series-text-inner';
-    seriesTextEl.innerHTML = '';
-    seriesTextEl.appendChild(inner);
+    const w = works.find(x =>
+      String(x.seriesSlug||'').trim() === String(seriesSlug||'').trim()
+      && x.seriesText
+    );
+
+    if(!w){
+      seriesTextEl.innerHTML = '';
+      seriesTextEl.style.display = 'none';
+      return;
+    }
+
+    seriesTextEl.style.display = '';
+    seriesTextEl.innerHTML = w.seriesText;
   }
-
-  // ✅ ALL(해시에 s 없음)이면 무조건 숨김
-  if(!seriesSlug){
-    inner.innerHTML = '';
-    seriesTextEl.style.display = 'none';
-    return;
-  }
-
-  // 해당 시리즈에서 seriesText 있는 항목 찾기
-  const w = works.find(x =>
-    String(x.seriesSlug||'').trim() === String(seriesSlug||'').trim()
-    && x.seriesText
-  );
-
-  // ✅ 텍스트 없는 시리즈면 숨김 + 내용 완전 제거
-  if(!w){
-    inner.innerHTML = '';
-    seriesTextEl.style.display = 'none';
-    return;
-  }
-
-  // ✅ 정상 표시
-  seriesTextEl.style.display = '';
-  inner.innerHTML = w.seriesText;
-
-  // (각주 인터랙션 쓰는 중이면 유지)
-  if(typeof bindFootnoteInteraction === 'function'){
-    bindFootnoteInteraction();
-  }
-}
 
 
   /* ===================== WORK RENDER ===================== */
@@ -213,7 +189,7 @@ function setSeriesText(seriesSlug){
   function applyFromHash(){
     const state = pickStateFromHash();
 
-    setSeriesTesetSeriesText(state.seriesSlugFromHash);xt(state.shownSlug);
+    setSeriesText(state.shownSlug);
 
     renderThumbs(state.list, { seriesSlug: state.shownSlug });
     setWork(state.selected, { seriesSlug: state.shownSlug });
