@@ -103,8 +103,16 @@ function buildHash({ seriesSlug, workId }){
   function setSeriesText(seriesSlug){
     if(!seriesTextEl) return;
 
+    // ✅ ALL 상태(= 해시에 s가 없거나, 빈 값)에서는 텍스트를 절대 보여주지 않음
+    const slug = String(seriesSlug || '').trim();
+    if(!slug){
+      seriesTextEl.innerHTML = '';
+      seriesTextEl.style.display = 'none';
+      return;
+    }
+
     const w = works.find(x =>
-      String(x.seriesSlug||'').trim() === String(seriesSlug||'').trim()
+      String(x.seriesSlug||'').trim() === slug
       && x.seriesText
     );
 
@@ -143,7 +151,8 @@ function buildHash({ seriesSlug, workId }){
       el.classList.toggle('active', el.dataset.id === w.id);
     });
 
-    const keepSlug = (seriesSlug || w.seriesSlug || '').trim() || null;
+    // ✅ 해시에 s가 있었으면 그걸 유지, 없었으면 ALL을 유지(= s를 추가하지 않음)
+    const keepSlug = (seriesSlug || '').trim() || null;
     history.replaceState(null,'', buildHash({ seriesSlug: keepSlug, workId: w.id }));
   }
 
@@ -166,6 +175,7 @@ function buildHash({ seriesSlug, workId }){
 
     let list = works;
 
+    // 해시에 s가 있는 경우에만 시리즈 필터링
     if(seriesSlug){
       const filtered = works.filter(w =>
         String(w.seriesSlug || '').trim() === seriesSlug
@@ -180,19 +190,22 @@ function buildHash({ seriesSlug, workId }){
     }
     if(!selected) selected = list[0] || works[0];
 
-    const shownSlug = (seriesSlug || selected?.seriesSlug || '').trim() || null;
+    // ✅ 핵심: "현재 모드"는 해시에 s가 있을 때만 series 모드.
+    //    ALL(해시에 s 없음)에서는 selected의 seriesSlug를 따라가면 안 됨.
+    const modeSlug = (seriesSlug || '').trim() || null;
 
-    return { list, selected, shownSlug, seriesSlugFromHash: seriesSlug || null };
+    return { list, selected, modeSlug, seriesSlugFromHash: modeSlug };
   }
 
 
   function applyFromHash(){
     const state = pickStateFromHash();
 
-    setSeriesText(state.shownSlug);
+    // ✅ ALL이면 숨기고, 시리즈 선택 상태에서만 표시
+    setSeriesText(state.modeSlug);
 
-    renderThumbs(state.list, { seriesSlug: state.shownSlug });
-    setWork(state.selected, { seriesSlug: state.shownSlug });
+    renderThumbs(state.list, { seriesSlug: state.modeSlug });
+    setWork(state.selected, { seriesSlug: state.modeSlug });
 
     if(seriesMenu){
       const activeSlug = state.seriesSlugFromHash;
