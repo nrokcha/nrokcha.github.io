@@ -60,7 +60,7 @@
    /* ---------- SERIES TEXT ---------- */
   --seriesTextMaxW:900px;      /* 시리즈 텍스트 폭 */
   --seriesTextTop:44px;        /* 썸네일 ↔ 텍스트 간격 */
-  --seriesTextSize:12px;     /* 글자 크기 */
+  --seriesTextSize:13px;     /* 글자 크기 */
   --seriesTextLH:1.8;         /* 줄간격 */
   --seriesTextColor:rgba(0,0,0,.82);
 
@@ -70,7 +70,7 @@
 
 --footnoteTop:18px;
 --footnoteSize:10px;
---footnoteLH:1.4;
+--footnoteLH:0.8;
 --footnoteColor:var(--muted);
 
 }
