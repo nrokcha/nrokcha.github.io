@@ -103,6 +103,13 @@ function buildHash({ seriesSlug, workId }){
   function setSeriesText(seriesSlug){
     if(!seriesTextEl) return;
 
+   // ⭐️ works-all 상태면 텍스트 숨김
+  if(!seriesSlug){
+    seriesTextEl.innerHTML = '';
+    seriesTextEl.style.display = 'none';
+    return;
+  }
+
     const w = works.find(x =>
       String(x.seriesSlug||'').trim() === String(seriesSlug||'').trim()
       && x.seriesText
