@@ -309,16 +309,19 @@ body.menu-open{overflow:hidden}
 /* =========================================================
    SERIES TEXT (썸네일 아래 설명 텍스트)
    ========================================================= */
+/* 바깥 컨테이너 — 캡션과 같은 기준선 */
 .series-text{
- width:min(var(--seriesTextMaxW), 100%);
-  margin:var(--seriesTextTop) auto 0;   /* ⭐️ auto 다시 살림 */
-  padding-left:var(--pad);              /* ⭐️ 좌측 시작선 맞추기 */
-  padding-right:var(--pad);
+  width:min(var(--maxw), 100%);        /* ⭐️ meta와 동일 */
+  margin:var(--seriesTextTop) auto 0;  /* ⭐️ 가운데 컨테이너 유지 */
+  padding:0 var(--pad);
+  color:var(--seriesTextColor);
+}
 
+/* 실제 텍스트 폭 (살짝 좁게) */
+.series-text-inner{
+  max-width:var(--seriesTextMaxW);     /* ← root의 620px 사용 */
   font-size:var(--seriesTextSize);
   line-height:var(--seriesTextLH);
-  color:var(--seriesTextColor);
-
   white-space:pre-line;
 }
 
