@@ -64,6 +64,19 @@
   --seriesTextLH:1.8;         /* 줄간격 */
   --seriesTextColor:rgba(0,0,0,.82);
 
+   /* ---------- SERIES FOOTNOTE 각주---------- */
+--fnSize:.72em;
+--fnOffset:2px;
+
+--footnoteTop:18px;
+--footnoteSize:10px;
+--footnoteLH:1.4;
+--footnoteColor:var(--muted);
+
+   /* ---------- SERIES FOOTNOTE INTERACTION 각주 클릭 시 인터렉션---------- */
+--footnoteHighlightBG:rgba(0,0,0,.06);
+--footnoteHighlightDur:.9s;
+
 }
 
 /* =========================================================
@@ -320,6 +333,26 @@ body.menu-open{overflow:hidden}
   color:var(--seriesTextColor);
 
   white-space:pre-line;
+}
+
+.series-text .fn{
+  font-size:var(--fnSize);
+  vertical-align:super;
+  margin-left:var(--fnOffset);
+}
+
+.series-text .footnote{
+  display:block;
+  margin-top:var(--footnoteTop);
+  font-size:var(--footnoteSize);
+  line-height:var(--footnoteLH);
+  color:var(--footnoteColor);
+}
+
+/* footnote highlight animation */
+.series-text .footnote.is-highlight{
+  background:var(--footnoteHighlightBG);
+  transition:background var(--footnoteHighlightDur) ease;
 }
 
 /* =========================================================
