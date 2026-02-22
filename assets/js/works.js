@@ -197,7 +197,7 @@ function buildHash({ seriesSlug, workId }){
   function applyFromHash(){
     const state = pickStateFromHash();
 
-    setSeriesText(state.shownSlug);
+    setSeriesTesetSeriesText(state.seriesSlugFromHash);xt(state.shownSlug);
 
     renderThumbs(state.list, { seriesSlug: state.shownSlug });
     setWork(state.selected, { seriesSlug: state.shownSlug });
