@@ -79,28 +79,27 @@ function getScaleClassFromCm(sizeStr){
 ========================================================= */
 function parseHash(){
   const raw = decodeURIComponent(location.hash.replace('#','')).trim();
-  if(!raw) return { series:null, workId:null };
+  if(!raw) return { seriesSlug:null, workId:null };
 
   // "="이 없으면 작품 id로 취급 (예전 링크 호환)
-  if(!raw.includes('=')) return { series:null, workId:raw };
+  if(!raw.includes('=')) return { seriesSlug:null, workId:raw };
 
-  const out = { series:null, workId:null };
+  const out = { seriesSlug:null, workId:null };
   raw.split('&').forEach(part=>{
     const [k,v] = part.split('=');
     if(!k || v == null) return;
-    if(k === 's') out.series = v.trim();
+    if(k === 's') out.seriesSlug = v.trim();
     if(k === 'w') out.workId = v.trim();
   });
   return out;
 }
 
-function buildHash({ series, workId }){
+function buildHash({ seriesSlug, workId }){
   const params = [];
-  if(series) params.push(`s=${encodeURIComponent(series)}`);
+  if(seriesSlug) params.push(`s=${encodeURIComponent(seriesSlug)}`);
   if(workId) params.push(`w=${encodeURIComponent(workId)}`);
   return params.length ? `#${params.join('&')}` : '';
 }
-
 
 /* ===================== UTIL: series 목록 ===================== */
 function uniqSeriesBySlug(works){
