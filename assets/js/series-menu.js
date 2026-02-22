@@ -28,7 +28,7 @@
     return list;
   }
 
-  // ✅ 메뉴 닫기 신호(메뉴가 실제로 닫히는 로직은 menu-loader.js가 처리)
+  // ✅ 메뉴 닫기 신호(메뉴가 실제로 닫히는 로직은 menu-loader.js / main.js가 처리)
   function requestCloseMenu(){
     try{
       document.dispatchEvent(new CustomEvent('menu:close'));
