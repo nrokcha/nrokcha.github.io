@@ -56,6 +56,14 @@
   --heroMaxH:85vh;            /* ⭐️ 전체 작품 최대 높이 (가로/세로 공통) */
   --thumbSize:92px;            /* 썸네일 크기(데스크탑) */
   --thumbSizeMobile:66px;      /* 썸네일 크기(모바일) */
+   
+   /* ---------- SERIES TEXT ---------- */
+  --seriesTextMaxW:620px;      /* 시리즈 텍스트 폭 */
+  --seriesTextTop:32px;        /* 썸네일 ↔ 텍스트 간격 */
+  --seriesTextSize:12px;     /* 글자 크기 */
+  --seriesTextLH:1.8;         /* 줄간격 */
+  --seriesTextColor:rgba(0,0,0,.82);
+
 }
 
 /* =========================================================
@@ -274,6 +282,7 @@ body.menu-open{overflow:hidden}
   -webkit-overflow-scrolling:touch;
   scrollbar-width:thin;
 }
+
 .thumb-strip::-webkit-scrollbar{height:8px}
 .thumb-strip::-webkit-scrollbar-thumb{
   background:rgba(0,0,0,.18);
@@ -297,6 +306,21 @@ body.menu-open{overflow:hidden}
 }
 .thumb.active{opacity:1}
 .thumb:active{transform:scale(.98)}
+
+/* =========================================================
+   SERIES TEXT (썸네일 아래 설명 텍스트)
+   ========================================================= */
+.series-text{
+  width:min(var(--seriesTextMaxW), 100%);
+  margin:var(--seriesTextTop) auto 0;
+  padding:0 var(--pad);
+
+  font-size:var(--seriesTextSize);
+  line-height:var(--seriesTextLH);
+  color:var(--seriesTextColor);
+
+  white-space:pre-line;
+}
 
 /* =========================================================
    7) ABOUT / CONTACT
