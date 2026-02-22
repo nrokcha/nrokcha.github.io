@@ -73,10 +73,6 @@
 --footnoteLH:1.4;
 --footnoteColor:var(--muted);
 
-   /* ---------- SERIES FOOTNOTE INTERACTION 각주 클릭 시 인터렉션---------- */
---footnoteHighlightBG:rgba(0,0,0,.06);
---footnoteHighlightDur:.9s;
-
 }
 
 /* =========================================================
@@ -347,12 +343,6 @@ body.menu-open{overflow:hidden}
   font-size:var(--footnoteSize);
   line-height:var(--footnoteLH);
   color:var(--footnoteColor);
-}
-
-/* footnote highlight animation */
-.series-text .footnote.is-highlight{
-  background:var(--footnoteHighlightBG);
-  transition:background var(--footnoteHighlightDur) ease;
 }
 
 /* =========================================================
