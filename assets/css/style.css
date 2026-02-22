@@ -58,7 +58,7 @@
   --thumbSizeMobile:66px;      /* 썸네일 크기(모바일) */
    
    /* ---------- SERIES TEXT ---------- */
-  --seriesTextMaxW:620px;      /* 시리즈 텍스트 폭 */
+  --seriesTextMaxW:560px;      /* 시리즈 텍스트 폭 */
   --seriesTextTop:32px;        /* 썸네일 ↔ 텍스트 간격 */
   --seriesTextSize:12px;     /* 글자 크기 */
   --seriesTextLH:1.8;         /* 줄간격 */
