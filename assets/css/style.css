@@ -70,7 +70,8 @@
 
 --footnoteTop:18px;
 --footnoteSize:10px;
---footnoteLH:0.5;
+--footnoteLH:1.8;
+--footnoteGap:6px;        /* 각주 항목(1과 2 사이) 간격 */
 --footnoteColor:var(--muted);
 
 }
@@ -351,12 +352,18 @@ body.menu-open{overflow:hidden}
   margin-left:var(--fnOffset);
 }
 
+/* 각주(항목) 스타일: span.footnote가 여러 개 붙어있는 구조 대응 */
 .series-text .footnote{
-  display:block;
-  margin-top:var(--footnoteTop);
+  display:block;                        /* 각주를 한 줄(항목)로 떨어뜨림 */
+  margin-top:var(--footnoteGap, 6px);   /* ✅ 각주 항목 간 간격 */
   font-size:var(--footnoteSize);
   line-height:var(--footnoteLH);
   color:var(--footnoteColor);
+}
+
+/* 각주 첫 항목만 위 간격을 크게(썸네일 아래 텍스트 본문과 분리) */
+.series-text .footnote:first-of-type{
+  margin-top:var(--footnoteTop);
 }
 
 /* =========================================================
