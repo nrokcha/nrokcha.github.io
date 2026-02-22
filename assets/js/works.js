@@ -99,23 +99,6 @@ function buildHash({ seriesSlug, workId }){
 
 
   /* ===================== SERIES TEXT ===================== */
-  function bindFootnoteInteraction(){
-    if(!seriesTextEl) return;
-
-    seriesTextEl.querySelectorAll('.fn').forEach(fn=>{
-      fn.addEventListener('click', ()=>{
-        const id = fn.dataset.fn;
-        const note = id
-          ? seriesTextEl.querySelector(`.footnote[data-fn="${id}"]`)
-          : seriesTextEl.querySelector('.footnote');
-
-        if(!note) return;
-
-        note.classList.add('is-highlight');
-        setTimeout(()=> note.classList.remove('is-highlight'), 900);
-      });
-    });
-  }
 
   function setSeriesText(seriesSlug){
     if(!seriesTextEl) return;
@@ -133,7 +116,6 @@ function buildHash({ seriesSlug, workId }){
 
     seriesTextEl.style.display = '';
     seriesTextEl.innerHTML = w.seriesText;
-    bindFootnoteInteraction();
   }
 
 
