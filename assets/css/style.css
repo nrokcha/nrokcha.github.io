@@ -320,11 +320,23 @@ body.menu-open{overflow:hidden}
    SERIES TEXT (썸네일 아래 설명 텍스트)
    ========================================================= */
 .series-text{
-  /* ✅ 캡션(.meta)와 동일한 컨테이너 폭/정렬 */
-  width:min(var(--maxw), 100%);
-  margin:var(--seriesTextTop) auto 0;
-  padding:0 var(--pad);
 
+  /* ⭐️ 핵심:
+     캡션 왼쪽 시작점 =
+     (화면 - maxw)/2 + pad
+
+     viewport가 maxw보다 작아지면
+     자동으로 pad만 남음
+  */
+  margin-top:var(--seriesTextTop);
+  margin-left:calc((100% - min(var(--maxw), 100%))/2 + var(--pad));
+  margin-right:auto;
+
+  /* 텍스트 읽기 폭 유지 */
+  max-width:var(--seriesTextMaxW);
+  width:100%;
+
+  /* 기존 타이포 유지 */
   font-size:var(--seriesTextSize);
   line-height:var(--seriesTextLH);
   color:var(--seriesTextColor);
@@ -332,6 +344,7 @@ body.menu-open{overflow:hidden}
   white-space:pre-line;
 }
 
+/* 각주 스타일 그대로 유지 */
 .series-text .fn{
   font-size:var(--fnSize);
   vertical-align:super;
