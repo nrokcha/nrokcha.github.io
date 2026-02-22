@@ -310,9 +310,10 @@ body.menu-open{overflow:hidden}
    SERIES TEXT (썸네일 아래 설명 텍스트)
    ========================================================= */
 .series-text{
-  width:min(var(--seriesTextMaxW), 100%);
-  margin:var(--seriesTextTop) 0 0; 
-  padding:0 var(--pad);
+ width:min(var(--seriesTextMaxW), 100%);
+  margin:var(--seriesTextTop) auto 0;   /* ⭐️ auto 다시 살림 */
+  padding-left:var(--pad);              /* ⭐️ 좌측 시작선 맞추기 */
+  padding-right:var(--pad);
 
   font-size:var(--seriesTextSize);
   line-height:var(--seriesTextLH);
